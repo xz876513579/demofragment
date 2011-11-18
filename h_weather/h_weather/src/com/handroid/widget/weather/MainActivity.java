@@ -1,9 +1,19 @@
 package com.handroid.widget.weather;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,16 +38,47 @@ public class MainActivity extends BaseActivity {
     	if (TextUtils.isEmpty(url))
     		return false;
     	
-    	try {
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(url);
+		try {
+			HttpResponse response = client.execute(httpGet);
+			StatusLine statusLine = response.getStatusLine();
+			int statusCode = statusLine.getStatusCode();
+			if (statusCode == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream content = entity.getContent();
+				String jsonRaw = WeatherAPI.getContent(content);
+				JSONObject jsonObject = new JSONObject(jsonRaw);
+				JSONArray collection = new JSONArray(((JSONObject)((JSONObject)jsonObject.get("forecast")).get("txt_forecast")).get("forecastday").toString());
+				//JSONArray collection = new JSONArray(jsonRaw);
+				for (int i = 0; i < collection.length(); i++) {
+					try {
+						this.loadJSON(collection.getJSONObject(i));
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				return true;
+			} else {
+				// Log.e(ParseJSON.class.toString(), "Failed to download file");
+				return false;
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	/*try {
 			URL request = new URL(url);
 			String jsonRaw = WeatherAPI.getContent((InputStream) request.getContent());
 			JSONObject jsonObject = new JSONObject(jsonRaw);
 			JSONArray collection = new JSONArray(((JSONObject)((JSONObject)jsonObject.get("forecast")).get("txt_forecast")).get("forecastday").toString());
 			//JSONArray collection = new JSONArray(jsonRaw);
 			for (int i = 0; i < collection.length(); i++) {
-				/*if (isCancelled()) {
-					return false;
-				}*/
 				try {
 					this.loadJSON(collection.getJSONObject(i));
 				} catch (JSONException e) {
@@ -46,7 +87,7 @@ public class MainActivity extends BaseActivity {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
     	
     	return false;
     }

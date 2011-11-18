@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.handroid.widget.weather.BaseApplication;
+
 public class WeatherAPI {
 
 	public static String getContent(InputStream is) throws IOException {
