@@ -1,0 +1,83 @@
+{
+	"response": {
+		"version": "0.1"
+		,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+		,"features": {
+		"conditions": 1
+		}
+	}
+		,	"current_observation": {
+		"image": {
+		"url":"http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+		"title":"Weather Underground",
+		"link":"http://www.wunderground.com"
+		},
+		"display_location": {
+		"full":"Liverpool, United Kingdom",
+		"city":"Liverpool",
+		"state":"",
+		"state_name":"United Kingdom",
+		"country":"UK",
+		"country_iso3166":"GB",
+		"zip":"00000",
+		"latitude":"53.33000183",
+		"longitude":"-2.84999990",
+		"elevation":"25.00000000"
+		},
+		"observation_location": {
+		"full":"Liverpool, ",
+		"city":"Liverpool",
+		"state":"",
+		"country":"UK",
+		"country_iso3166":"GB",
+		"latitude":"53.33000183",
+		"longitude":"-2.84999990",
+		"elevation":"82 ft"
+		},
+		"estimated": {
+		},
+		"station_id":"EGGP",
+		"observation_time":"Last Updated on November 17, 9:50 AM GMT",
+		"observation_time_rfc822":"Thu, 17 Nov 2011 09:50:00 +0000",
+		"observation_epoch":"1321523400",
+		"local_time_rfc822":"Thu, 17 Nov 2011 10:12:13 +0000",
+		"local_epoch":"1321524733",
+		"local_tz_short":"GMT",
+		"local_tz_long":"Europe/London",
+		"weather":"Clear",
+		"temperature_string":"48 F (9 C)",
+		"temp_f":48,
+		"temp_c":9,
+		"relative_humidity":"93%",
+		"wind_string":"From the SSE at 6 MPH",
+		"wind_dir":"SSE",
+		"wind_degrees":160,
+		"wind_mph":6,
+		"wind_gust_mph":0,
+		"pressure_mb":"1015",
+		"pressure_in":"29.98",
+		"pressure_trend":"0",
+		"dewpoint_string":"46 F (8 C)",
+		"dewpoint_f":46,
+		"dewpoint_c":8,
+		"heat_index_string":"NA",
+		"heat_index_f":"NA",
+		"heat_index_c":"NA",
+		"windchill_string":"NA",
+		"windchill_f":"NA",
+		"windchill_c":"NA",
+		"visibility_mi":"N/A",
+		"visibility_km":"N/A",
+		"precip_1hr_string":"-9999.00 in (-9999.00 mm)",
+		"precip_1hr_in":"-9999.00",
+		"precip_1hr_metric":"-9999.00",
+		"precip_today_string":"0.00 in (0.0 mm)",
+		"precip_today_in":"0.00",
+		"precip_today_metric":"0.0",
+		"icon":"clear",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/clear.gif",
+		"forecast_url":"http://www.wunderground.com/global/stations/03323.html",
+		"history_url":"http://www.wunderground.com/history/airport/EGGP/2011/11/17/DailyHistory.html",
+		"ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=53.33000183,-2.84999990"
+	}
+}

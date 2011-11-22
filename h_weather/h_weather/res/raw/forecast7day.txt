@@ -1,0 +1,571 @@
+{
+	"response": {
+		"version": "0.1"
+		,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+		,"features": {
+		"forecast7day": 1
+		}
+	}
+		,
+	"forecast":{
+		"txt_forecast": {
+		"date":"12:00 AM GMT",
+		"forecastday": [
+		{
+		"period":0,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Thursday",
+		"fcttext":"Partly cloudy. Fog early. High of 54&deg;F. Winds from the South at 10 mph.",
+		"fcttext_metric":"Partly cloudy. Fog early. High of 12&deg;C. Winds from the South at 10-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":1,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Thursday Night",
+		"fcttext":"Partly cloudy in the evening, then mostly cloudy with a chance of rain. Low of 48&deg;F. Winds from the SSE at 15 mph. Chance of rain 20%.",
+		"fcttext_metric":"Partly cloudy in the evening, then mostly cloudy with a chance of rain. Low of 9&deg;C. Winds from the SSE at 20 km/h. Chance of rain 20% with rainfall amounts near 1.3 mm possible.",
+		"pop":"20"
+		}
+		,
+		{
+		"period":2,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Friday",
+		"fcttext":"Overcast with a chance of rain in the morning, then mostly cloudy. High of 57&deg;F. Winds from the South at 10 mph.",
+		"fcttext_metric":"Overcast with a chance of rain in the morning, then mostly cloudy. High of 14&deg;C. Winds from the South at 20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":3,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Friday Night",
+		"fcttext":"Partly cloudy in the evening, then clear. Fog overnight. Low of 46&deg;F. Winds from the SE at 10 mph.",
+		"fcttext_metric":"Partly cloudy in the evening, then clear. Fog overnight. Low of 8&deg;C. Winds from the SE at 15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":4,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Saturday",
+		"fcttext":"Partly cloudy. Fog early. High of 54&deg;F. Winds from the SSE at 10 mph.",
+		"fcttext_metric":"Partly cloudy. Fog early. High of 12&deg;C. Winds from the SSE at 10-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":5,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Saturday Night",
+		"fcttext":"Partly cloudy in the evening, then mostly cloudy. Fog overnight. Low of 45&deg;F. Winds from the SSE at 5 mph.",
+		"fcttext_metric":"Partly cloudy in the evening, then mostly cloudy. Fog overnight. Low of 7&deg;C. Winds from the SSE at 10 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":6,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Sunday",
+		"fcttext":"Clear in the morning, then partly cloudy. Fog early. High of 52&deg;F. Winds from the South at 5-10 mph.",
+		"fcttext_metric":"Clear in the morning, then partly cloudy. Fog early. High of 11&deg;C. Winds from the South at 5-15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":7,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Sunday Night",
+		"fcttext":"Partly cloudy in the evening, then overcast with a chance of rain. Fog overnight. Low of 46&deg;F. Winds from the SSE at 10 mph. Chance of rain 20%.",
+		"fcttext_metric":"Partly cloudy in the evening, then overcast with a chance of rain. Fog overnight. Low of 8&deg;C. Winds from the SSE at 15 km/h. Chance of rain 20% with rainfall amounts near 1.5 mm possible.",
+		"pop":"20"
+		}
+		,
+		{
+		"period":8,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Monday",
+		"fcttext":"Partly cloudy with a chance of rain in the morning, then mostly cloudy. Fog early. High of 54&deg;F. Winds from the SSE at 10 mph.",
+		"fcttext_metric":"Partly cloudy with a chance of rain in the morning, then mostly cloudy. Fog early. High of 12&deg;C. Winds from the SSE at 15-20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":9,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Monday Night",
+		"fcttext":"Partly cloudy with a chance of rain. Fog overnight. Low of 45&deg;F. Winds from the ESE at 10-15 mph. Chance of rain 40%.",
+		"fcttext_metric":"Partly cloudy with a chance of rain. Fog overnight. Low of 7&deg;C. Winds from the ESE at 15-20 km/h. Chance of rain 40% with rainfall amounts near 1.8 mm possible.",
+		"pop":"40"
+		}
+		,
+		{
+		"period":10,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Tuesday",
+		"fcttext":"Mostly cloudy. Fog early. High of 50&deg;F. Winds from the South at 10 mph.",
+		"fcttext_metric":"Mostly cloudy. Fog early. High of 10&deg;C. Winds from the South at 15 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":11,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Tuesday Night",
+		"fcttext":"Mostly cloudy in the evening, then partly cloudy. Fog overnight. Low of 41&deg;F. Winds from the SSE at 10 mph.",
+		"fcttext_metric":"Mostly cloudy in the evening, then partly cloudy. Fog overnight. Low of 5&deg;C. Winds from the SSE at 15-20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":12,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Wednesday",
+		"fcttext":"Partly cloudy in the morning, then overcast with a chance of rain. High of 54&deg;F. Winds from the SSW at 10 mph. Chance of rain 50%.",
+		"fcttext_metric":"Partly cloudy in the morning, then overcast with a chance of rain. High of 12&deg;C. Winds from the SSW at 20 km/h. Chance of rain 50% with rainfall amounts near 3.0 mm possible.",
+		"pop":"50"
+		}
+		,
+		{
+		"period":13,
+		"icon":"cloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/cloudy.gif",
+		"title":"Wednesday Night",
+		"fcttext":"Mostly cloudy in the evening, then overcast. Low of 45&deg;F. Winds from the SSW at 5-15 mph.",
+		"fcttext_metric":"Mostly cloudy in the evening, then overcast. Low of 7&deg;C. Winds from the SSW at 10-20 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":14,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Thursday",
+		"fcttext":"Overcast with a chance of rain in the morning, then mostly cloudy with a chance of rain. High of 54&deg;F. Winds from the South at 15-25 mph. Chance of rain 50%.",
+		"fcttext_metric":"Overcast with a chance of rain in the morning, then mostly cloudy with a chance of rain. High of 12&deg;C. Winds from the South at 25-40 km/h. Chance of rain 50% with rainfall amounts near 2.8 mm possible.",
+		"pop":"50"
+		}
+		,
+		{
+		"period":15,
+		"icon":"mostlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/mostlycloudy.gif",
+		"title":"",
+		"fcttext":"",
+		"fcttext_metric":"",
+		"pop":"0"
+		}
+		]
+		},
+		"simpleforecast": {
+		"forecastday": [
+		{"date":{
+	"epoch":"1321563600",
+	"pretty":"9:00 PM GMT on November 17, 2011",
+	"day":17,
+	"month":11,
+	"year":2011,
+	"yday":320,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Thu",
+	"weekday":"Thursday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":1,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"48",
+		"celsius":"9"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"maxwind": {
+		"mph": 12,
+		"kph": 19,
+		"dir": "South",
+		"degrees": 173
+		},
+		"avewind": {
+		"mph": 10,
+		"kph": 16,
+		"dir": "South",
+		"degrees": 170
+		},
+		"avehumidity": 80,
+		"maxhumidity": 94,
+		"minhumidity": 76
+		}
+		,
+		{"date":{
+	"epoch":"1321650000",
+	"pretty":"9:00 PM GMT on November 18, 2011",
+	"day":18,
+	"month":11,
+	"year":2011,
+	"yday":321,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Fri",
+	"weekday":"Friday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":2,
+		"high": {
+		"fahrenheit":"57",
+		"celsius":"14"
+		},
+		"low": {
+		"fahrenheit":"46",
+		"celsius":"8"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"maxwind": {
+		"mph": 12,
+		"kph": 19,
+		"dir": "South",
+		"degrees": 183
+		},
+		"avewind": {
+		"mph": 10,
+		"kph": 16,
+		"dir": "SSE",
+		"degrees": 159
+		},
+		"avehumidity": 88,
+		"maxhumidity": 91,
+		"minhumidity": 72
+		}
+		,
+		{"date":{
+	"epoch":"1321736400",
+	"pretty":"9:00 PM GMT on November 19, 2011",
+	"day":19,
+	"month":11,
+	"year":2011,
+	"yday":322,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Sat",
+	"weekday":"Saturday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":3,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"45",
+		"celsius":"7"
+		},
+		"conditions":"Fog",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"mostlysunny",
+		"pop":0,
+		"maxwind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "SSE",
+		"degrees": 153
+		},
+		"avewind": {
+		"mph": 5,
+		"kph": 8,
+		"dir": "South",
+		"degrees": 173
+		},
+		"avehumidity": 87,
+		"maxhumidity": 91,
+		"minhumidity": 79
+		}
+		,
+		{"date":{
+	"epoch":"1321822800",
+	"pretty":"9:00 PM GMT on November 20, 2011",
+	"day":20,
+	"month":11,
+	"year":2011,
+	"yday":323,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Sun",
+	"weekday":"Sunday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":4,
+		"high": {
+		"fahrenheit":"52",
+		"celsius":"11"
+		},
+		"low": {
+		"fahrenheit":"46",
+		"celsius":"8"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"maxwind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "SSE",
+		"degrees": 149
+		},
+		"avewind": {
+		"mph": 6,
+		"kph": 10,
+		"dir": "SSE",
+		"degrees": 168
+		},
+		"avehumidity": 92,
+		"maxhumidity": 98,
+		"minhumidity": 85
+		}
+		,
+		{"date":{
+	"epoch":"1321909200",
+	"pretty":"9:00 PM GMT on November 21, 2011",
+	"day":21,
+	"month":11,
+	"year":2011,
+	"yday":324,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Mon",
+	"weekday":"Monday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":5,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"45",
+		"celsius":"7"
+		},
+		"conditions":"Fog",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"maxwind": {
+		"mph": 13,
+		"kph": 21,
+		"dir": "SSE",
+		"degrees": 157
+		},
+		"avewind": {
+		"mph": 7,
+		"kph": 11,
+		"dir": "SE",
+		"degrees": 125
+		},
+		"avehumidity": 91,
+		"maxhumidity": 94,
+		"minhumidity": 84
+		}
+		,
+		{"date":{
+	"epoch":"1321995600",
+	"pretty":"9:00 PM GMT on November 22, 2011",
+	"day":22,
+	"month":11,
+	"year":2011,
+	"yday":325,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Tue",
+	"weekday":"Tuesday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":6,
+		"high": {
+		"fahrenheit":"50",
+		"celsius":"10"
+		},
+		"low": {
+		"fahrenheit":"41",
+		"celsius":"5"
+		},
+		"conditions":"Fog",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":0,
+		"maxwind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "WSW",
+		"degrees": 249
+		},
+		"avewind": {
+		"mph": 8,
+		"kph": 13,
+		"dir": "SSW",
+		"degrees": 201
+		},
+		"avehumidity": 85,
+		"maxhumidity": 94,
+		"minhumidity": 73
+		}
+		,
+		{"date":{
+	"epoch":"1322082000",
+	"pretty":"9:00 PM GMT on November 23, 2011",
+	"day":23,
+	"month":11,
+	"year":2011,
+	"yday":326,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Wed",
+	"weekday":"Wednesday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":7,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"45",
+		"celsius":"7"
+		},
+		"conditions":"Chance of Rain",
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"skyicon":"mostlycloudy",
+		"pop":50,
+		"maxwind": {
+		"mph": 15,
+		"kph": 24,
+		"dir": "SSW",
+		"degrees": 197
+		},
+		"avewind": {
+		"mph": 13,
+		"kph": 21,
+		"dir": "SSW",
+		"degrees": 206
+		},
+		"avehumidity": 92,
+		"maxhumidity": 96,
+		"minhumidity": 86
+		}
+		,
+		{"date":{
+	"epoch":"1322168400",
+	"pretty":"9:00 PM GMT on November 24, 2011",
+	"day":24,
+	"month":11,
+	"year":2011,
+	"yday":327,
+	"hour":21,
+	"min":"00",
+	"sec":0,
+	"isdst":"0",
+	"monthname":"November",
+	"weekday_short":"Thu",
+	"weekday":"Thursday",
+	"ampm":"PM",
+	"tz_short":"GMT",
+	"tz_long":"Europe/London"
+},
+		"period":8,
+		"high": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"low": {
+		"fahrenheit":"46",
+		"celsius":"8"
+		},
+		"conditions":"Chance of Rain",
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"skyicon":"partlycloudy",
+		"pop":50,
+		"maxwind": {
+		"mph": 26,
+		"kph": 42,
+		"dir": "SSE",
+		"degrees": 152
+		},
+		"avewind": {
+		"mph": 20,
+		"kph": 32,
+		"dir": "South",
+		"degrees": 172
+		},
+		"avehumidity": 89,
+		"maxhumidity": 94,
+		"minhumidity": 89
+		}
+		]
+		}
+	}
+}
