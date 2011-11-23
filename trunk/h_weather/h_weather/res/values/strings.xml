@@ -3,6 +3,8 @@
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">H_weather</string>
+    
+	<string name="searching_text">Search</string>
 
 	<!-- Feature API from http://www.wunderground.com/ -->
 	<string name="feature_searching_api">http://autocomplete.wunderground.com/aq?query=<xliff:g id="querry_name">%1$s</xliff:g>&amp;format=json</string>
