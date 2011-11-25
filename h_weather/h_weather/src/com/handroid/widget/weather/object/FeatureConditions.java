@@ -2,6 +2,7 @@ package com.handroid.widget.weather.object;
 
 public class FeatureConditions {
 
+	public static final String CONDITION_TABLE_NAME	= "condition_table";
 	public static final String OBSERVATION_TIME 	= "observation_time";
 	public static final String WEATHER				= "weather";
 	public static final String TEMP_F 				= "temp_f";
