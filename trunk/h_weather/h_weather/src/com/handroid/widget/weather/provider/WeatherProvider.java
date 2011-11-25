@@ -25,6 +25,9 @@ public class WeatherProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
+		long rowId = -1;
+		Uri newUri = null;
+		
 		return null;
 	}
 
