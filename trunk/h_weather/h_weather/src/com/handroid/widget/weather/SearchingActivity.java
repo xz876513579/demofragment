@@ -30,7 +30,7 @@ public class SearchingActivity extends Activity{
 		listResult = (ListView) findViewById(R.id.lv_search_list_result);
 		
 		// Get a cursor with all people
-        Cursor c = getContentResolver().query(People.CONTENT_URI, null, null, null, null);
+        /*Cursor c = getContentResolver().query(People.CONTENT_URI, null, null, null, null);
         startManagingCursor(c);
 
         ListAdapter adapter = new SimpleCursorAdapter(this, 
@@ -42,7 +42,7 @@ public class SearchingActivity extends Activity{
                 new String[] {People.NAME} ,
                 // The "text1" view defined in the XML template
                 new int[] {android.R.id.text1}); 
-        listResult.setAdapter(adapter);
+        listResult.setAdapter(adapter);*/
 	}
 	
 	OnClickListener mItemOnClickListener = new OnClickListener() {
