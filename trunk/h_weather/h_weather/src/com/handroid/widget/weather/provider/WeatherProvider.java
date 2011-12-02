@@ -1,11 +1,15 @@
 package com.handroid.widget.weather.provider;
 
+import java.util.TimeZone;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.provider.BaseColumns;
 
 import com.handroid.widget.weather.object.FeatureConditions;
 
@@ -13,6 +17,28 @@ public class WeatherProvider extends ContentProvider {
 	
 	private SQLiteOpenHelper mOpenHelper;
 
+	private static final int 		CONSTANTS 		= 1;
+	private static final int 		CONSTANT_ID 	= 2;
+	private static final UriMatcher MATCHER;
+	private static final String 	TABLE			= "conditions";
+	private static final String 	AUTHORITY		= "com.handroid.widget.weather.provider.WeatherProvider";
+
+	static {
+		MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+		MATCHER.addURI(AUTHORITY, "conditions", CONSTANTS);
+		MATCHER.addURI(AUTHORITY, "conditions/#", CONSTANT_ID);
+	}
+	
+	public static final class Constants implements BaseColumns {
+		public static final Uri CONTENT_URI = Uri
+				.parse("content://" + AUTHORITY + "/constants");
+		public static final String DEFAULT_SORT_ORDER 	= com.handroid.widget.weather.object.FeatureSearchResultObj.NAME;
+		public static final String ZMW 					= com.handroid.widget.weather.object.FeatureSearchResultObj.ZMW;
+		public static final String C 					= com.handroid.widget.weather.object.FeatureSearchResultObj.C;
+		public static final String TZ 					= com.handroid.widget.weather.object.FeatureSearchResultObj.TZ;
+		public static final String TZS 					= com.handroid.widget.weather.object.FeatureSearchResultObj.TZS;
+	}
+	
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		return 0;
@@ -20,7 +46,10 @@ public class WeatherProvider extends ContentProvider {
 
 	@Override
 	public String getType(Uri uri) {
-		return null;
+		if (isCollectionUri(uri)) {
+			return ("vnd.handroid.cursor.dir/constant");
+		}
+		return ("vnd.handroid.cursor.item/constant");
 	}
 
 	@Override
@@ -64,4 +93,7 @@ public class WeatherProvider extends ContentProvider {
 		return rowId;
 	}
 
+	private boolean isCollectionUri(Uri url) {
+		return (MATCHER.match(url) == CONSTANTS);
+	}
 }
