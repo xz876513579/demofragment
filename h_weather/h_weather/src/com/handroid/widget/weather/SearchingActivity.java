@@ -1,5 +1,9 @@
 package com.handroid.widget.weather;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -44,6 +48,23 @@ public class SearchingActivity extends Activity{
                 new int[] {android.R.id.text1}); 
         listResult.setAdapter(adapter);*/
 	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+        // Create a calendar object and set it time based on the local time zone
+        Calendar localTime = Calendar.getInstance();
+        /*localTime.set(Calendar.HOUR, hour);
+        localTime.set(Calendar.MINUTE, min);
+        localTime.set(Calendar.SECOND, sec);*/
+
+        // Create a calendar object for representing a Germany time zone. Then we
+        // wet the time of the calendar with the value of the local time
+        Calendar desTime = new GregorianCalendar(TimeZone.getTimeZone("Europe/London"));
+        desTime.setTimeInMillis(localTime.getTimeInMillis());
+
+        BaseApplication.makeToastMsg("London time: " + desTime.get(Calendar.HOUR) + ":" + desTime.get(Calendar.MINUTE) + ":" + desTime.get(Calendar.SECOND));
+	};
 	
 	OnClickListener mItemOnClickListener = new OnClickListener() {
 		public void onClick(View v) {
