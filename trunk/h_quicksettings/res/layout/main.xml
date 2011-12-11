@@ -9,14 +9,14 @@
     android:layout_gravity="center"
     >
 
-    <TextView
+    <com.handroid.apps.quicksettings.widget.CoolTextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 	    style="@style/TextShadowBlack" 
 	    android:textColor="@color/solid_white"
 	    android:gravity="center"
-	    android:textStyle="bold"
 	    android:textSize="20sp"
+	    android:textStyle="bold"
 	    android:layout_marginBottom="10dp"
         android:text="QUICK SYSTEM SETTINGS" />
 	<LinearLayout 

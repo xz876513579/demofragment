@@ -2,6 +2,7 @@ package com.handroid.apps.quicksettings;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
