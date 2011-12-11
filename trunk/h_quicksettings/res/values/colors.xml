@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <drawable name="red">#7f00</drawable>
+    <drawable name="blue">#770000ff</drawable>
+    <drawable name="green">#7700ff00</drawable>
+	<drawable name="yellow">#77ffff00</drawable>
+	
+	<drawable name="screen_background_black">#ff000000</drawable>
+    <drawable name="translucent_background">#e0000000</drawable>
+    <drawable name="transparent_background">#bfff</drawable>
+
+    <color name="solid_red">#f00</color>
+    <color name="solid_blue">#0000ff</color>
+    <color name="solid_green">#f0f0</color>
+    <color name="solid_yellow">#ffffff00</color>
+    <color name="solid_white">#fff</color>
+    <color name="solid_black">#000</color>
+    
+    <color name="transparent">#00000000</color>
+
+	<!-- drawable name="red">#7f00</drawable>
+    <drawable name="blue">#770000ff</drawable>
+    <drawable name="green">#7700ff00</drawable>
+	<drawable name="yellow">#77ffff00</drawable-->
+	
+    <color name="solid_blue_info">#ff0048aa</color>
+    <color name="solid_blue_user">#ff48b0bc</color>
+    <color name="solid_blue_user_light">#ff0035b2</color>
+    <color name="solid_link">#ffffca01</color>
+    <color name="solid_link_light">#ff0000ff</color>
+    <color name="solid_light_gray">#ff6f7479</color>
+    <color name="solid_light_gray_light">#ff837983</color>
+    <color name="solid_shadow_gray">#bf000000</color>
+    <color name="solid_shadow_gray_light">#bfffffff</color>
+    <color name="solid_gray_plain_dark">#ffafafaf</color>
+    <color name="solid_textColorHighlight">#ff087ae5</color>
+    <color name="solid_transparent">#00000000</color>
+    <color name="tabbar_background">#ff000000</color>
+    
+    <color name="tabbar_text">#ffa9a9a9</color>
+    <color name="clickable_label">#ff3f87bf</color>
+    <color name="tweet_text_count_error">#ffff0000</color>
+    <color name="tweet_text_count">#ffffffff</color>
+    <color name="tweet_reply_base_text">#ff555555</color>
+    <color name="tweet_sub_menu_bg">#ffffffff</color>
+    <color name="hot_title">#ff555555</color>
+    <color name="hot_bg">#ffddeeff</color>
+    <color name="hot_word_bg">#ffffffff</color>
+    <color name="dialog_text_color">#ffffffff</color>
+    <color name="tweet_text_unread_black">#fffffafa</color>
+    <color name="tweet_text_read_black">#ffa9a9a9</color>
+    <color name="tweet_text_gap_black">#ff000000</color>
+    <color name="tweet_text_unread_white">#ff000000</color>
+    <color name="tweet_text_read_white">#ff808080</color>
+    <color name="tweet_text_gap_white">#fffffafa</color>
+    <color name="tweet_bg_mytweet_black">#ff000020</color>
+    <color name="tweet_bg_mention_black">#ff002000</color>
+    <color name="tweet_bg_gap_black">#ffe0f3ff</color>
+    <color name="tweet_bg_mytweet_white">#ffe0f3ff</color>
+    <color name="tweet_bg_mention_white">#ffe2ffe0</color>
+    <color name="tweet_bg_gap_white">#ff000020</color>
+</resources>
