@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.NetworkInfo.State;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -43,6 +44,10 @@ public class DataConManager {
 			Log.e(TAG, ">>> is enable check ERROR: " + localException.toString());
 		}
 		return false;
+	}
+	
+	public State getDataState() {
+		return mConManager.getNetworkInfo(0).getState();
 	}
 
 	/**
