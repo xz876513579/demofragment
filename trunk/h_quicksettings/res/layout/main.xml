@@ -32,8 +32,9 @@
 		    android:textStyle="bold"
 		    android:layout_weight="1"
 		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
+		    android:drawableTop="@drawable/ic_wifi"
 	        android:text="WiFi" />
 	    <Button
 	        android:id="@+id/btn_togle_wifi_settings"
@@ -45,10 +46,11 @@
 		    android:layout_weight="1"
 		    style="@style/TextShadowBlack"
 		    android:textSize="11sp"
+		    android:gravity="center"
 		    android:enabled="false"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="WiFi\nSettings" />	    
-	    <Button
+		    android:drawableTop="@drawable/ic_wifi_settings"
+	        android:text="WiFi Settings" />	    
+	    <com.handroid.apps.quicksettings.widget.CoolButton
 	        android:id="@+id/btn_togle_bluetooth"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
@@ -57,9 +59,10 @@
 		    android:textStyle="bold"
 		    android:layout_weight="1"
 		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="Toggle\nBluetooth" />	    
+		    android:drawableTop="@drawable/ic_bluetooth_off"
+	        android:text="Toggle Bluetooth" />	    
 	    <Button
 	        android:id="@+id/btn_togle_bluetooth_settings"
 	        android:background="@drawable/button_custom_bg"
@@ -69,10 +72,68 @@
 		    android:textStyle="bold"
 		    android:layout_weight="1"
    		    android:textSize="11sp"
+   		    android:gravity="center"
 		    style="@style/TextShadowBlack"
 		    android:enabled="false"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="Bluetooth\nSettings" />	    
+		    android:drawableTop="@drawable/ic_bluetooth_settings_on"
+	        android:text="Bluetooth Settings" />	    
+    </LinearLayout>
+	<LinearLayout 
+	    android:layout_width="match_parent" 
+	    android:layout_height="wrap_content"
+	    android:gravity="center">
+	    <com.handroid.apps.quicksettings.widget.CoolButton
+	        android:id="@+id/btn_togle_manage_apps"
+	        android:background="@drawable/button_custom_bg"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
+	        android:textColor="@color/solid_white"
+		    android:textStyle="bold"
+		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
+		    style="@style/TextShadowBlack"
+		    android:drawableTop="@drawable/ic_manage_apps"
+	        android:text="Manage Apps" />
+	    <Button
+	        android:id="@+id/btn_togle_mobile_data"
+	        android:background="@drawable/button_custom_bg"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
+	        android:textColor="@color/solid_white"
+		    android:textStyle="bold"
+		    android:layout_weight="1"
+		    style="@style/TextShadowBlack"
+		    android:textSize="11sp"
+		    android:gravity="center"
+		    android:drawableTop="@drawable/ic_network_on"
+	        android:text="Mobile Data" />	    
+	    <Button
+	        android:id="@+id/btn_togle_bluetooth"
+	        android:background="@drawable/button_custom_bg"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
+	        android:textColor="@color/solid_white"
+		    android:textStyle="bold"
+		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
+		    style="@style/TextShadowBlack"
+		    android:drawableTop="@drawable/ic_ringer_on"
+	        android:text="Ringer" />	    
+	    <Button
+	        android:id="@+id/btn_togle_bluetooth_settings"
+	        android:background="@drawable/button_custom_bg"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
+	        android:textColor="@color/solid_white"
+		    android:textStyle="bold"
+		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
+		    style="@style/TextShadowBlack"
+		    android:drawableTop="@drawable/ic_auto_rotation_on"
+	        android:text="Phone Rotation" />	    
     </LinearLayout>
 	<LinearLayout 
 	    android:layout_width="match_parent" 
@@ -81,46 +142,66 @@
 	    <Button
 	        android:id="@+id/btn_togle_brightness"
 	        android:background="@drawable/button_custom_bg"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
 	        android:textColor="@color/solid_white"
 		    android:textStyle="bold"
 		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="Toggle\nWiFi" />
+		    android:drawableTop="@drawable/ic_air_off"
+	        android:text="Airplane Mode" />
 	    <Button
 	        android:id="@+id/btn_togle_wifi_settings"
 	        android:background="@drawable/button_custom_bg"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
 	        android:textColor="@color/solid_white"
 		    android:textStyle="bold"
 		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="WiFi\nSettings" />	    
+		    android:drawableTop="@drawable/ic_gps_off"
+	        android:text="GPS" />	    
 	    <Button
 	        android:id="@+id/btn_togle_bluetooth"
 	        android:background="@drawable/button_custom_bg"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
 	        android:textColor="@color/solid_white"
 		    android:textStyle="bold"
 		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="Toggle\nBluetooth" />	    
+		    android:drawableTop="@drawable/ic_light_auto"
+	        android:text="Brightness" />	    
 	    <Button
 	        android:id="@+id/btn_togle_bluetooth_settings"
 	        android:background="@drawable/button_custom_bg"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="60dp"
+	        android:layout_height="80dp"
 	        android:textColor="@color/solid_white"
 		    android:textStyle="bold"
 		    android:layout_weight="1"
+		    android:textSize="11sp"
+		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/switch_apps_plane_on"
-	        android:text="Bluetooth\nSettings" />	    
+		    android:drawableTop="@drawable/ic_battery_bg"
+	        android:text="Battery" />	    
     </LinearLayout>
+    <Button
+        android:id="@+id/btn_qsettings_done"
+        android:background="@drawable/button_custom_bg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/solid_white"
+	    android:textStyle="bold"
+	    android:textSize="13sp"
+	    android:gravity="center"
+	    style="@style/TextShadowBlack"
+	    android:layout_marginTop="5dp"
+        android:text="DONE" />
 </LinearLayout>
