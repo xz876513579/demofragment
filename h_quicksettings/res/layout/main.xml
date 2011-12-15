@@ -62,7 +62,7 @@
 		    android:gravity="center"
 		    style="@style/TextShadowBlack"
 		    android:drawableTop="@drawable/ic_bluetooth_off"
-	        android:text="Toggle Bluetooth" />	    
+	        android:text="Bluetooth" />	    
 	    <Button
 	        android:id="@+id/btn_togle_bluetooth_settings"
 	        android:background="@drawable/button_custom_bg"
@@ -109,7 +109,7 @@
 		    android:drawableTop="@drawable/ic_network_on"
 	        android:text="Mobile Data" />	    
 	    <Button
-	        android:id="@+id/btn_togle_bluetooth"
+	        android:id="@+id/btn_togle_phone_ringer"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
 	        android:layout_height="80dp"
@@ -120,9 +120,9 @@
 		    android:gravity="center"
 		    style="@style/TextShadowBlack"
 		    android:drawableTop="@drawable/ic_ringer_on"
-	        android:text="Ringer" />	    
+	        android:text="Phone Ringer" />	    
 	    <Button
-	        android:id="@+id/btn_togle_bluetooth_settings"
+	        android:id="@+id/btn_togle_phone_vibrate"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
 	        android:layout_height="80dp"
@@ -132,8 +132,8 @@
 		    android:textSize="11sp"
 		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/ic_auto_rotation_on"
-	        android:text="Phone Rotation" />	    
+		    android:drawableTop="@drawable/ic_vibration_off"
+	        android:text="Phone Vibrate" />	    
     </LinearLayout>
 	<LinearLayout 
 	    android:layout_width="match_parent" 
@@ -179,7 +179,7 @@
 		    android:drawableTop="@drawable/ic_light_auto"
 	        android:text="Brightness" />	    
 	    <Button
-	        android:id="@+id/btn_togle_bluetooth_settings"
+	        android:id="@+id/btn_togle_battery"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
 	        android:layout_height="80dp"
@@ -192,7 +192,7 @@
 		    android:drawableTop="@drawable/ic_battery_bg"
 	        android:text="Battery" />	    
     </LinearLayout>
-    <Button
+    <com.handroid.apps.quicksettings.widget.CoolButton
         android:id="@+id/btn_qsettings_done"
         android:background="@drawable/button_custom_bg"
         android:layout_width="fill_parent"
