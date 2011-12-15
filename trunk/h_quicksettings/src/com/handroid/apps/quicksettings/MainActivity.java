@@ -2,7 +2,10 @@ package com.handroid.apps.quicksettings;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +32,11 @@ public class MainActivity extends Activity {
 	Button btnToggleBluetooth;
 	Button btnToggleBluetoothSettings;
 	
+	Button btnToggleBattery;
+	
+	Button btnTogglePhoneRinger;
+	Button btnTogglePhoneVibrate;
+	
 	Button btnToggleManageApps;
 	
 	Button btnDone;
@@ -37,6 +45,7 @@ public class MainActivity extends Activity {
 	private BluetoothManager mBluetoothManager ;
 	private QuickWifiManager mQuickWifiManager ;
 	private DataConManager mDataConManager;
+	private AudioManager mAudioManager;
 	
 	private final int MSG_BLUETOOTH_STATE 		= 1000;
 	private final int MSG_WIFI_STATE 			= 1001;
@@ -57,6 +66,7 @@ public class MainActivity extends Activity {
         mQuickWifiManager = new QuickWifiManager(getApplicationContext());
     	mBluetoothManager = new BluetoothManager(getApplicationContext());
     	mDataConManager = new DataConManager(getApplicationContext());
+    	mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // --------------------- Audio manager
 //        AudioManager mVibrator = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -95,6 +105,15 @@ public class MainActivity extends Activity {
         
         btnToggleMobileNetwork = (Button) findViewById(R.id.btn_togle_mobile_data);
         btnToggleMobileNetwork.setOnClickListener(viewOnClickListener);
+        
+        btnToggleBattery = (Button) findViewById(R.id.btn_togle_battery);
+        btnToggleBattery.setOnClickListener(viewOnClickListener);
+        
+        btnTogglePhoneRinger = (Button) findViewById(R.id.btn_togle_phone_ringer);
+        btnTogglePhoneRinger.setOnClickListener(viewOnClickListener);
+        
+        btnTogglePhoneVibrate = (Button) findViewById(R.id.btn_togle_phone_vibrate);
+        btnTogglePhoneVibrate.setOnClickListener(viewOnClickListener);
         
         checkAllStateAndUpdateUI();
     }
@@ -226,6 +245,7 @@ public class MainActivity extends Activity {
     	// overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
     };
     
+    // TODO OnClick event
     OnClickListener viewOnClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -248,7 +268,11 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.btn_togle_wifi_settings:
 				mIntent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-				startActivity(mIntent);
+				try {
+					startActivity(mIntent);
+				} catch (ActivityNotFoundException e) {
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				}
 				break;
 
 			// ----------- BRIGHTNESS SETTINGS
@@ -279,13 +303,21 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.btn_togle_bluetooth_settings:
 				mIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
-				startActivity(mIntent);
+				try {
+					startActivity(mIntent);
+				} catch (ActivityNotFoundException e) {
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				}
 				break;
 				
 			// ----------- MANAGE APPS SETTINGS
 			case R.id.btn_togle_manage_apps:
 				mIntent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
-				startActivity(mIntent);
+				try {
+					startActivity(mIntent);
+				} catch (ActivityNotFoundException e) {
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				}
 				break;
 				
 			// ----------- MOBILE DATA NETWORK SETTINGS
@@ -294,6 +326,41 @@ public class MainActivity extends Activity {
 					
 				} else {
 					
+				}
+				break;
+				
+			// ----------- BATTERY
+			case R.id.btn_togle_battery:
+//				mIntent = new Intent(android.provider.Settings.);
+//				startActivity(mIntent);
+				break;
+				
+			// ----------- PHONE RINGER
+			case R.id.btn_togle_phone_ringer:
+				if (mAudioManager == null)
+					return;
+				switch (mAudioManager.getRingerMode()) {
+				case AudioManager.RINGER_MODE_NORMAL:
+					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+					break;
+				case AudioManager.RINGER_MODE_SILENT:
+					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+					break;
+				}
+				break;
+
+			// ----------- PHONE VIBRATE
+			case R.id.btn_togle_phone_vibrate:
+				if (mAudioManager == null)
+					return;
+				switch (mAudioManager.getRingerMode()) {
+				case AudioManager.RINGER_MODE_NORMAL:
+					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+					break;
+				case AudioManager.RINGER_MODE_VIBRATE:
+					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+					mAudioManager.getVibrateSetting(0);
+					break;
 				}
 				break;
 				
