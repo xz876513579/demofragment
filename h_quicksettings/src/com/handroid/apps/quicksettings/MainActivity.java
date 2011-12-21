@@ -3,29 +3,37 @@ package com.handroid.apps.quicksettings;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.handroid.apps.quicksettings.utils.BluetoothManager;
+import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
+import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
 import com.handroid.apps.quicksettings.utils.DataConManager;
-import com.handroid.apps.quicksettings.utils.QuickWifiManager;
+import com.handroid.apps.quicksettings.utils.GpsToggleController;
+import com.handroid.apps.quicksettings.utils.PhoneRotationToggleController;
+import com.handroid.apps.quicksettings.utils.WifiToggleController;
 
 public class MainActivity extends Activity {
+	
+	private final String TAG = "QuickSettings";
 	
 	Button btnToggleWifi;
 	Button btnToggleWifiSettings;
 	
-	Button btnToggleBrightness;
+	Button btnTogglePhoneRotation;
 	
 	Button btnToggleMobileNetwork;
 	
@@ -39,16 +47,21 @@ public class MainActivity extends Activity {
 	
 	Button btnToggleManageApps;
 	
+	Button btnToogleGpsSettings;
+	
+	Button btnToggleAirPlane;
+	
 	Button btnDone;
 	
-	// private WifiManager wifiManager;
-	private BluetoothManager mBluetoothManager ;
-	private QuickWifiManager mQuickWifiManager ;
 	private DataConManager mDataConManager;
 	private AudioManager mAudioManager;
 	
-	private final int MSG_BLUETOOTH_STATE 		= 1000;
-	private final int MSG_WIFI_STATE 			= 1001;
+	private BluetoothToggleController mBluetoothToggleController;
+	private WifiToggleController mWifiToggleController;
+	private GpsToggleController mGpsToggleController;
+	private PhoneRotationToggleController mPhoneRotationToggleController;
+	private AirplaneToggleController mAirplaneToggleController;
+	
 	private final int MSG_MOBILE_NETWORK_STATE 	= 1002;
 	
     /** Called when the activity is first created. */
@@ -60,11 +73,15 @@ public class MainActivity extends Activity {
         // Have the system blur any windows behind this one.
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-
+        
+        mBluetoothToggleController = new BluetoothToggleController(getApplicationContext());
+        mWifiToggleController = new WifiToggleController(getApplicationContext());
+        mGpsToggleController = new GpsToggleController(getApplicationContext());
+        mPhoneRotationToggleController = new PhoneRotationToggleController(getApplicationContext());
+        mAirplaneToggleController = new AirplaneToggleController(getApplicationContext());
+        
         setContentView(R.layout.main);
         
-        mQuickWifiManager = new QuickWifiManager(getApplicationContext());
-    	mBluetoothManager = new BluetoothManager(getApplicationContext());
     	mDataConManager = new DataConManager(getApplicationContext());
     	mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
@@ -80,9 +97,9 @@ public class MainActivity extends Activity {
 //        mDataConManager.switchMobileEnableState(true);
 //        // BaseApplication.makeToastMsg("Data enable state: " + mDataConManager.getMobileDataEnabled());
         
-		BaseApplication.makeToastMsg("airplane_mode_on: "
-				+ (Settings.System.getInt(getApplicationContext()
-						.getContentResolver(), "airplane_mode_on", 0) == 1));
+//		BaseApplication.makeToastMsg("airplane_mode_on: "
+//				+ (Settings.System.getInt(getApplicationContext()
+//						.getContentResolver(), "airplane_mode_on", 0) == 1));
 		
         btnDone = (Button) findViewById(R.id.btn_qsettings_done);
         btnDone.setOnClickListener(viewOnClickListener);
@@ -97,8 +114,8 @@ public class MainActivity extends Activity {
         btnToggleBluetoothSettings = (Button) findViewById(R.id.btn_togle_bluetooth_settings);
         btnToggleBluetoothSettings.setOnClickListener(viewOnClickListener);
 
-        btnToggleBrightness = (Button) findViewById(R.id.btn_togle_brightness);
-        btnToggleBrightness.setOnClickListener(viewOnClickListener);
+        btnTogglePhoneRotation = (Button) findViewById(R.id.btn_togle_phone_rotation);
+        btnTogglePhoneRotation.setOnClickListener(viewOnClickListener);
         
         btnToggleManageApps = (Button) findViewById(R.id.btn_togle_manage_apps);
         btnToggleManageApps.setOnClickListener(viewOnClickListener);
@@ -115,111 +132,58 @@ public class MainActivity extends Activity {
         btnTogglePhoneVibrate = (Button) findViewById(R.id.btn_togle_phone_vibrate);
         btnTogglePhoneVibrate.setOnClickListener(viewOnClickListener);
         
-        checkAllStateAndUpdateUI();
+        btnToogleGpsSettings = (Button) findViewById(R.id.btn_togle_gps_settings);
+        btnToogleGpsSettings.setOnClickListener(viewOnClickListener);
+        
+        btnToggleAirPlane = (Button) findViewById(R.id.btn_togle_airplane);
+        btnToggleAirPlane.setOnClickListener(viewOnClickListener);
+        
+        Button[] arrBluetoothBtnToggle = new Button[] {btnToggleBluetooth, btnToggleBluetoothSettings};
+        mBluetoothToggleController.initToggleButton(arrBluetoothBtnToggle);
+        
+        Button[] arrWifiBtnToggle = new Button[] {btnToggleWifi, btnToggleWifiSettings};
+        mWifiToggleController.initToggleButton(arrWifiBtnToggle);
+        
+        Button[] arrGpsBtnToggle = new Button[] {btnToogleGpsSettings};
+        mGpsToggleController.initToggleButton(arrGpsBtnToggle);
+        
+        Button[] arrPhoneRotationBtnToggle = new Button[] {btnTogglePhoneRotation};
+        mPhoneRotationToggleController.initToggleButton(arrPhoneRotationBtnToggle);
+        
+        Button[] arrPhoneAirplaneBtnToggle = new Button[] {btnToggleAirPlane};
+        mAirplaneToggleController.initToggleButton(arrPhoneAirplaneBtnToggle);
     }
     
-    Handler mHandler = new Handler() {
-    	@Override
-    	public void handleMessage(android.os.Message msg) {
-    		super.handleMessage(msg);
-    		switch (msg.what) {
-    		// -------------- MSG_BLUETOOTH_STATE
-			case MSG_BLUETOOTH_STATE:
-				switch (mBluetoothManager.getBluetoothState()) {
-				case BluetoothAdapter.STATE_TURNING_ON:
-					BaseApplication.makeToastMsg("Turning on Bluetooth, please wait!");
-					btnToggleBluetoothSettings.setEnabled(false);
-					updateBluetoothButtonUI();
-					btnToggleBluetooth.setEnabled(false);
-					this.sendEmptyMessageDelayed(MSG_BLUETOOTH_STATE, 6000);
-					break;
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	checkAllStateAndUpdateUI();
+    	mBluetoothToggleController.doOnActivityResume();
+    	mWifiToggleController.doOnActivityResume();
+    	mGpsToggleController.doOnActivityResume();
+    	mPhoneRotationToggleController.doOnActivityResume();
+    	mAirplaneToggleController.doOnActivityResume();
 
-				case BluetoothAdapter.STATE_TURNING_OFF:
-					btnToggleBluetooth.setEnabled(true);
-					btnToggleBluetoothSettings.setEnabled(true);
-					updateBluetoothButtonUI();
-					this.sendEmptyMessageDelayed(MSG_BLUETOOTH_STATE, 1500);
-					break;
-					
-				case BluetoothAdapter.STATE_ON:
-				case BluetoothAdapter.STATE_OFF:
-					updateBluetoothButtonUI();
-					break;
-					
-				default:
-					updateBluetoothButtonUI();
-					break;
-				}
-				break;
-				
-    		// -------------- MSG_WIFI_STATE
-			case MSG_WIFI_STATE:
-				switch (mQuickWifiManager.getWifiState()) {
-				case WifiManager.WIFI_STATE_ENABLING:
-					BaseApplication.makeToastMsg("Turning on Wifi, please wait!");
-					btnToggleWifiSettings.setEnabled(false);
-					updateWifiButtonUI();
-					btnToggleWifi.setEnabled(false);
-					this.sendEmptyMessageDelayed(MSG_WIFI_STATE, 6000);
-					break;
-
-				case WifiManager.WIFI_STATE_DISABLING:
-					btnToggleWifi.setEnabled(true);
-					btnToggleWifiSettings.setEnabled(true);
-					updateWifiButtonUI();
-					this.sendEmptyMessageDelayed(MSG_WIFI_STATE, 1500);
-					break;
-					
-				case WifiManager.WIFI_STATE_ENABLED:
-				case WifiManager.WIFI_STATE_DISABLED:
-					updateWifiButtonUI();
-					break;
-					
-				default:
-					updateWifiButtonUI();
-					break;
-				}
-				break;
-    		// -------------- DEFAULT CASE
-			default:
-				break;
-			}
-    	};
-    };
+		registerReceiver(batteryReceiver, new IntentFilter(
+				Intent.ACTION_BATTERY_CHANGED));
+	};
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	mBluetoothToggleController.doOnActivityPause();
+    	mWifiToggleController.doOnActivityPause();
+    	// mGpsToggleController.doOnActivityPause();
+    	// mPhoneRotationToggleController.doOnActivityPause();
+    	mAirplaneToggleController.doOnActivityPause();
+    	
+    	unregisterReceiver(batteryReceiver);
+    }
     
     private void checkAllStateAndUpdateUI(){ 
-    	// check bluetooth state
-    	updateBluetoothButtonUI();
-    	updateWifiButtonUI();
     	updateDataNetworkButtonUI();
     }
-    
-    private void updateBluetoothButtonUI() {
-    	btnToggleBluetooth.setEnabled(true);
-    	if (mBluetoothManager.isBluetoothTurnedOn()) {
-    		btnToggleBluetoothSettings.setEnabled(true);
-    		btnToggleBluetoothSettings.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_bluetooth_settings_on, 0, 0);
-    		btnToggleBluetooth.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_bluetooth_on, 0, 0);
-    	} else {
-    		btnToggleBluetoothSettings.setEnabled(false);
-    		btnToggleBluetoothSettings.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_bluetooth_settings_off, 0, 0);
-    		btnToggleBluetooth.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_bluetooth_off, 0, 0);
-    	}
-    }
-    
-    private void updateWifiButtonUI() {
-    	btnToggleWifi.setEnabled(true);
-    	if (mQuickWifiManager.isWifiEnabled()) {
-    		btnToggleWifiSettings.setEnabled(true);
-    		btnToggleWifiSettings.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_wifi_settings_on, 0, 0);
-    		btnToggleWifi.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_wifi_on, 0, 0);
-    	} else {
-    		btnToggleWifiSettings.setEnabled(false);
-    		btnToggleWifiSettings.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_wifi_settings, 0, 0);
-    		btnToggleWifi.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_wifi, 0, 0);
-    	}
-    }
-    
+
     private void updateDataNetworkButtonUI() {
 		if (mDataConManager.getMobileDataEnabled()) {
 			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_on, 0, 0);
@@ -227,6 +191,23 @@ public class MainActivity extends Activity {
 			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_off, 0, 0);
 		}
     }
+    
+    private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
+    	@Override
+    	public void onReceive( Context context, Intent intent ) {
+	    	int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+	    	/*int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+	    	if ((level >= 0) && (scale > 0.0F))
+	    		level = Math.round(level / scale * 100.0F);*/
+	    	
+	    	int temp = Math.round(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0F);
+	    	
+	    	// temp = temp * 9 / 5 + 32; // enable this line if we want using ºF
+	    	// android.util.Log.i(TAG, "--> battery: " + level + "%" + " " + (temp / 10.0F) + "C");
+    		btnToggleBattery.setText(level + getString(R.string.txt_percent) + "\n" + temp + getString(R.string.txt_degree));
+    	}
+	};
+    
     @Override
     protected void onStart() {
     	super.onStart();
@@ -234,15 +215,9 @@ public class MainActivity extends Activity {
     }
     
     @Override
-    protected void onPause() {
-    	super.onPause();
-    	// overridePendingTransition(R.anim.zoom_exit, R.anim.zoom_enter);
-    }
-    
-    @Override
     protected void onStop() {
     	super.onStop();
-    	// overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
+    	overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
     };
     
     // TODO OnClick event
@@ -251,23 +226,24 @@ public class MainActivity extends Activity {
 		public void onClick(View v) {
 			Intent mIntent;
 			switch (v.getId()) {
+			
 			// ----------- WIFI SETTINGS
 			case R.id.btn_togle_wifi:
 				// do nothing when our wifi is anabling or disabling 
-				if (mQuickWifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLING ||
-						mQuickWifiManager.getWifiState() == WifiManager.WIFI_STATE_DISABLING)
+				if (mWifiToggleController.getWifiState() == WifiManager.WIFI_STATE_ENABLING ||
+						mWifiToggleController.getWifiState() == WifiManager.WIFI_STATE_DISABLING)
 					return;
-				if (mQuickWifiManager.isWifiEnabled()) {
-					mQuickWifiManager.disableWifi();
+				if (mWifiToggleController.isWifiEnabled()) {
+					mWifiToggleController.disableWifi();
 				}  else {
-					mQuickWifiManager.enableWifi();
+					mWifiToggleController.enableWifi();
 				}
 				btnToggleWifi.setEnabled(false);
 				btnToggleWifiSettings.setEnabled(false);
-				mHandler.sendEmptyMessage(MSG_WIFI_STATE);
 				break;
 			case R.id.btn_togle_wifi_settings:
 				mIntent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				try {
 					startActivity(mIntent);
 				} catch (ActivityNotFoundException e) {
@@ -275,8 +251,14 @@ public class MainActivity extends Activity {
 				}
 				break;
 
-			// ----------- BRIGHTNESS SETTINGS
-			case R.id.btn_togle_brightness:
+			// ----------- PHONE ROTATION SETTINGS
+			case R.id.btn_togle_phone_rotation:
+				if (mPhoneRotationToggleController.isPhoneRotationTurnedOn() == 0) {
+					mPhoneRotationToggleController.setPhoneRotationState(true);
+				} else {
+					mPhoneRotationToggleController.setPhoneRotationState(false);
+				}
+				mPhoneRotationToggleController.updatePhoneRotationButtonState(mPhoneRotationToggleController.isPhoneRotationTurnedOn());
 				break;
 				
 			// ----------- FINISH QUICK SETTINGS APP
@@ -288,21 +270,21 @@ public class MainActivity extends Activity {
 			// ----------- BLUETOOTH SETTINGS
 			case R.id.btn_togle_bluetooth:
 				// do nothing when our Bluetooth is turning on turning off 
-				if (mBluetoothManager.getBluetoothState() == BluetoothAdapter.STATE_TURNING_ON ||
-						mBluetoothManager.getBluetoothState() == BluetoothAdapter.STATE_TURNING_OFF)
+				if (mBluetoothToggleController.getBluetoothState() == BluetoothAdapter.STATE_TURNING_ON ||
+						mBluetoothToggleController.getBluetoothState() == BluetoothAdapter.STATE_TURNING_OFF)
 					return;
 
-				if (mBluetoothManager.isBluetoothTurnedOn()) {
-					mBluetoothManager.disableBluetooth();
+				if (mBluetoothToggleController.isBluetoothTurnedOn()) {
+					mBluetoothToggleController.disableBluetooth();
 				}  else {
-					mBluetoothManager.enableBluetooth();
+					mBluetoothToggleController.enableBluetooth();
 				}
 				btnToggleBluetooth.setEnabled(false);
 				btnToggleBluetoothSettings.setEnabled(false);
-				mHandler.sendEmptyMessage(MSG_BLUETOOTH_STATE);
 				break;
 			case R.id.btn_togle_bluetooth_settings:
 				mIntent = new Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS);
+				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				try {
 					startActivity(mIntent);
 				} catch (ActivityNotFoundException e) {
@@ -313,6 +295,7 @@ public class MainActivity extends Activity {
 			// ----------- MANAGE APPS SETTINGS
 			case R.id.btn_togle_manage_apps:
 				mIntent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				try {
 					startActivity(mIntent);
 				} catch (ActivityNotFoundException e) {
@@ -331,8 +314,17 @@ public class MainActivity extends Activity {
 				
 			// ----------- BATTERY
 			case R.id.btn_togle_battery:
-//				mIntent = new Intent(android.provider.Settings.);
-//				startActivity(mIntent);
+				// mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockGeneric");
+				mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockPattern");
+				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+				try {
+					startActivity(mIntent);
+				} catch (ActivityNotFoundException e) {
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				} catch (SecurityException se) {
+					se.printStackTrace();
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				}
 				break;
 				
 			// ----------- PHONE RINGER
@@ -361,6 +353,29 @@ public class MainActivity extends Activity {
 					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 					mAudioManager.getVibrateSetting(0);
 					break;
+				}
+				break;
+				
+			// ----------- GPS
+			case R.id.btn_togle_gps_settings:
+				mIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+				try {
+					startActivity(mIntent);
+				} catch (ActivityNotFoundException e) {
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				} catch (SecurityException se) {
+					se.printStackTrace();
+					BaseApplication.makeToastMsg(getString(R.string.activity_not_found));
+				}
+				break;
+				
+			// ----------- Air plane
+			case R.id.btn_togle_airplane:
+				if (mAirplaneToggleController.isAirplaneTurnedOn()) {
+					mAirplaneToggleController.disableAirplane();
+				} else {
+					mAirplaneToggleController.enableAirplane();
 				}
 				break;
 				

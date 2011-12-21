@@ -38,6 +38,7 @@
     <drawable name="green">#7700ff00</drawable>
 	<drawable name="yellow">#77ffff00</drawable-->
 	
+	<color name="solid_blue_light">#47b4fb</color>
     <color name="solid_blue_info">#ff0048aa</color>
     <color name="solid_blue_user">#ff48b0bc</color>
     <color name="solid_blue_user_light">#ff0035b2</color>

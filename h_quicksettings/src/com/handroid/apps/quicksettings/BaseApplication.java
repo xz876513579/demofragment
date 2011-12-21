@@ -28,4 +28,9 @@ public class BaseApplication extends Application{
 			mAppToast.show();
 		}
 	}
+	
+	public static Context getAppContext() {
+		return mAppContext;
+	}
+	                                       
 }
