@@ -1,5 +1,7 @@
 package com.handroid.apps.quicksettings;
 
+import java.nio.channels.FileChannel.MapMode;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
@@ -11,8 +13,7 @@ import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,6 +24,7 @@ import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
 import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
 import com.handroid.apps.quicksettings.utils.DataConManager;
 import com.handroid.apps.quicksettings.utils.GpsToggleController;
+import com.handroid.apps.quicksettings.utils.MobileNetworkToggleController;
 import com.handroid.apps.quicksettings.utils.PhoneRotationToggleController;
 import com.handroid.apps.quicksettings.utils.WifiToggleController;
 
@@ -53,7 +55,7 @@ public class MainActivity extends Activity {
 	
 	Button btnDone;
 	
-	private DataConManager mDataConManager;
+	// private DataConManager mDataConManager;
 	private AudioManager mAudioManager;
 	
 	private BluetoothToggleController mBluetoothToggleController;
@@ -61,6 +63,7 @@ public class MainActivity extends Activity {
 	private GpsToggleController mGpsToggleController;
 	private PhoneRotationToggleController mPhoneRotationToggleController;
 	private AirplaneToggleController mAirplaneToggleController;
+	private MobileNetworkToggleController mMobileNetworkToggleController;
 	
 	private final int MSG_MOBILE_NETWORK_STATE 	= 1002;
 	
@@ -79,10 +82,11 @@ public class MainActivity extends Activity {
         mGpsToggleController = new GpsToggleController(getApplicationContext());
         mPhoneRotationToggleController = new PhoneRotationToggleController(getApplicationContext());
         mAirplaneToggleController = new AirplaneToggleController(getApplicationContext());
+        mMobileNetworkToggleController = new MobileNetworkToggleController(getApplicationContext());        
         
         setContentView(R.layout.main);
         
-    	mDataConManager = new DataConManager(getApplicationContext());
+//    	mDataConManager = new DataConManager(getApplicationContext());
     	mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // --------------------- Audio manager
@@ -152,18 +156,29 @@ public class MainActivity extends Activity {
         
         Button[] arrPhoneAirplaneBtnToggle = new Button[] {btnToggleAirPlane};
         mAirplaneToggleController.initToggleButton(arrPhoneAirplaneBtnToggle);
+        
+        Button[] arrPhoneMobileNetworkBtnToggle = new Button[] {btnToggleMobileNetwork};
+        mMobileNetworkToggleController.initToggleButton(arrPhoneMobileNetworkBtnToggle);
+    }
+    
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN)
+    		return true;
+    	return super.dispatchKeyEvent(event);
     }
     
     @Override
     protected void onResume() {
     	super.onResume();
-    	checkAllStateAndUpdateUI();
+//    	checkAllStateAndUpdateUI();
     	mBluetoothToggleController.doOnActivityResume();
     	mWifiToggleController.doOnActivityResume();
     	mGpsToggleController.doOnActivityResume();
     	mPhoneRotationToggleController.doOnActivityResume();
     	mAirplaneToggleController.doOnActivityResume();
-
+    	mMobileNetworkToggleController.doOnActivityResume();
 		registerReceiver(batteryReceiver, new IntentFilter(
 				Intent.ACTION_BATTERY_CHANGED));
 	};
@@ -176,21 +191,22 @@ public class MainActivity extends Activity {
     	// mGpsToggleController.doOnActivityPause();
     	// mPhoneRotationToggleController.doOnActivityPause();
     	mAirplaneToggleController.doOnActivityPause();
+    	mMobileNetworkToggleController.doOnActivityPause();
     	
     	unregisterReceiver(batteryReceiver);
     }
     
-    private void checkAllStateAndUpdateUI(){ 
+    /*private void checkAllStateAndUpdateUI(){ 
     	updateDataNetworkButtonUI();
-    }
+    }*/
 
-    private void updateDataNetworkButtonUI() {
+    /*private void updateDataNetworkButtonUI() {
 		if (mDataConManager.getMobileDataEnabled()) {
 			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_on, 0, 0);
 		} else {
 			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_off, 0, 0);
 		}
-    }
+    }*/
     
     private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
     	@Override
@@ -305,10 +321,10 @@ public class MainActivity extends Activity {
 				
 			// ----------- MOBILE DATA NETWORK SETTINGS
 			case R.id.btn_togle_mobile_data:
-				if (mDataConManager.getMobileDataEnabled()) {
-					
+				if (mMobileNetworkToggleController.getMobileDataEnabled()) {
+					mMobileNetworkToggleController.switchMobileEnableState(false);
 				} else {
-					
+					mMobileNetworkToggleController.switchMobileEnableState(true);
 				}
 				break;
 				

@@ -46,6 +46,8 @@ public class AirplaneToggleController extends AbtractToggleController{
 				updateAirplaneButtonState(true);
 			else
 				updateAirplaneButtonState(false);
+			
+			updateAirplaneButtonUI();
 			break;
 		}
 	}
