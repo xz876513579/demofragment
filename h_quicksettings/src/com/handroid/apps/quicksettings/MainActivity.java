@@ -1,7 +1,5 @@
 package com.handroid.apps.quicksettings;
 
-import java.nio.channels.FileChannel.MapMode;
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
@@ -22,7 +20,6 @@ import android.widget.Button;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
 import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
-import com.handroid.apps.quicksettings.utils.DataConManager;
 import com.handroid.apps.quicksettings.utils.GpsToggleController;
 import com.handroid.apps.quicksettings.utils.MobileNetworkToggleController;
 import com.handroid.apps.quicksettings.utils.PhoneRotationToggleController;
@@ -44,8 +41,8 @@ public class MainActivity extends Activity {
 	
 	Button btnToggleBattery;
 	
-	Button btnTogglePhoneRinger;
-	Button btnTogglePhoneVibrate;
+	Button btnToggleLight;
+	Button btnToggleSoundVibrate;
 	
 	Button btnToggleManageApps;
 	
@@ -130,11 +127,11 @@ public class MainActivity extends Activity {
         btnToggleBattery = (Button) findViewById(R.id.btn_togle_battery);
         btnToggleBattery.setOnClickListener(viewOnClickListener);
         
-        btnTogglePhoneRinger = (Button) findViewById(R.id.btn_togle_phone_ringer);
-        btnTogglePhoneRinger.setOnClickListener(viewOnClickListener);
+        btnToggleLight = (Button) findViewById(R.id.btn_togle_light);
+        btnToggleLight.setOnClickListener(viewOnClickListener);
         
-        btnTogglePhoneVibrate = (Button) findViewById(R.id.btn_togle_phone_vibrate);
-        btnTogglePhoneVibrate.setOnClickListener(viewOnClickListener);
+        btnToggleSoundVibrate = (Button) findViewById(R.id.btn_togle_sound_vibrate);
+        btnToggleSoundVibrate.setOnClickListener(viewOnClickListener);
         
         btnToogleGpsSettings = (Button) findViewById(R.id.btn_togle_gps_settings);
         btnToogleGpsSettings.setOnClickListener(viewOnClickListener);
@@ -343,8 +340,8 @@ public class MainActivity extends Activity {
 				}
 				break;
 				
-			// ----------- PHONE RINGER
-			case R.id.btn_togle_phone_ringer:
+			// ----------- PHONE LIGHT
+			case R.id.btn_togle_light:
 				if (mAudioManager == null)
 					return;
 				switch (mAudioManager.getRingerMode()) {
@@ -358,7 +355,7 @@ public class MainActivity extends Activity {
 				break;
 
 			// ----------- PHONE VIBRATE
-			case R.id.btn_togle_phone_vibrate:
+			case R.id.btn_togle_sound_vibrate:
 				if (mAudioManager == null)
 					return;
 				switch (mAudioManager.getRingerMode()) {
