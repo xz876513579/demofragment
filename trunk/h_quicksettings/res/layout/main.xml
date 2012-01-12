@@ -108,8 +108,8 @@
 		    android:gravity="center"
 		    android:drawableTop="@drawable/ic_network_off"
 	        android:text="Mobile Data" />	    
-	    <Button
-	        android:id="@+id/btn_togle_phone_ringer"
+	    <com.handroid.apps.quicksettings.widget.CoolButton
+	        android:id="@+id/btn_togle_light"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
 	        android:layout_height="80dp"
@@ -119,10 +119,10 @@
 		    android:textSize="13sp"
 		    android:gravity="center"
 		    style="@style/TextShadowBlack"
-		    android:drawableTop="@drawable/ic_ringer_on"
-	        android:text="Phone Ringer" />	    
-	    <Button
-	        android:id="@+id/btn_togle_phone_vibrate"
+		    android:drawableTop="@drawable/ic_light_hight"
+	        android:text="Back Light" />	    
+	    <com.handroid.apps.quicksettings.widget.CoolButton
+	        android:id="@+id/btn_togle_sound_vibrate"
 	        android:background="@drawable/button_custom_bg"
 	        android:layout_width="60dp"
 	        android:layout_height="80dp"
