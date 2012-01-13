@@ -2,6 +2,8 @@ package com.handroid.apps.quicksettings.utils;
 
 import java.lang.reflect.Method;
 
+import com.handroid.apps.quicksettings.BaseApplication;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -75,6 +77,7 @@ public class DataConManager {
 			return true;
 		} catch (Exception localException) {
 			Log.e(TAG, ">>> switch State ERROR: " + localException.toString());
+			BaseApplication.makeToastMsg("Unsupport this feature on this phone yet!");
 		}
 		return false;
 	}
