@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 
+import com.handroid.apps.quicksettings.BaseApplication;
 import com.handroid.apps.quicksettings.R;
 
 public class MobileNetworkToggleController extends AbtractToggleController{
@@ -164,6 +165,7 @@ public class MobileNetworkToggleController extends AbtractToggleController{
 			return true;
 		} catch (Exception localException) {
 			Log.e(TAG, ">>> switch State ERROR: " + localException.toString());
+			BaseApplication.makeToastMsg("Unsupport this feature on this phone yet!");
 		}
 		return false;
 	}

@@ -156,6 +156,8 @@ public class MainActivity extends Activity {
         
         Button[] arrPhoneMobileNetworkBtnToggle = new Button[] {btnToggleMobileNetwork};
         mMobileNetworkToggleController.initToggleButton(arrPhoneMobileNetworkBtnToggle);
+        
+        updateSoundVibrateButtonState();
     }
     
     @Override
@@ -232,6 +234,29 @@ public class MainActivity extends Activity {
     	super.onStop();
     	overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
     };
+    
+    private void updateSoundVibrateButtonState() {
+    	if (mAudioManager == null) {
+    		btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_ringer_off, 0, 0);
+			btnToggleSoundVibrate.setText("Error!");
+    		return ;
+    	}
+    		 
+    	switch (mAudioManager.getRingerMode()) {
+		case AudioManager.RINGER_MODE_SILENT:
+			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_ringer_off, 0, 0);
+			btnToggleSoundVibrate.setText("Silent\nMode");
+			break;
+		case AudioManager.RINGER_MODE_NORMAL:
+			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_ringer_on, 0, 0);
+			btnToggleSoundVibrate.setText("Normal\nMode");
+			break;
+		case AudioManager.RINGER_MODE_VIBRATE:
+			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_vibration_on, 0, 0);
+			btnToggleSoundVibrate.setText("Vibrate\nMode");
+			break;
+		}
+    }
     
     // TODO OnClick event
     OnClickListener viewOnClickListener = new OnClickListener() {
@@ -342,31 +367,14 @@ public class MainActivity extends Activity {
 				
 			// ----------- PHONE LIGHT
 			case R.id.btn_togle_light:
-				if (mAudioManager == null)
-					return;
-				switch (mAudioManager.getRingerMode()) {
-				case AudioManager.RINGER_MODE_NORMAL:
-					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-					break;
-				case AudioManager.RINGER_MODE_SILENT:
-					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-					break;
-				}
+				BaseApplication.makeToastMsg("Coming soon!");
 				break;
 
 			// ----------- PHONE VIBRATE
 			case R.id.btn_togle_sound_vibrate:
-				if (mAudioManager == null)
-					return;
-				switch (mAudioManager.getRingerMode()) {
-				case AudioManager.RINGER_MODE_NORMAL:
-					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-					break;
-				case AudioManager.RINGER_MODE_VIBRATE:
-					mAudioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-					mAudioManager.getVibrateSetting(0);
-					break;
-				}
+				if (mAudioManager != null)
+					mAudioManager.setRingerMode((mAudioManager.getRingerMode() + 1) % 3);
+				updateSoundVibrateButtonState();
 				break;
 				
 			// ----------- GPS
