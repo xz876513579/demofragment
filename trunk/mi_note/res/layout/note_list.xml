@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg_stripes_repeate" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_title_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/title_bar_bg"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="#FFEAD1AE"
+            android:textSize="@dimen/text_font_size_medium"
+            android:visibility="gone" />
+
+        <ListView
+            android:id="@+id/notes_list"
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_marginTop="8.0dp"
+            android:layout_weight="1"
+            android:cacheColorHint="@null"
+            android:divider="@null"
+            android:fadingEdge="@null"
+            android:listSelector="@android:color/transparent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_menu_new_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#9000"
+        android:padding="5.0dp" >
+
+        <Button
+            android:id="@+id/btn_new_note"
+            style="@style/TextShadowBlack"
+            android:layout_width="0.0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom_bg"
+            android:drawableLeft="@drawable/ic_add"
+            android:focusable="false"
+            android:text="New note"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_note_list_more"
+            style="@style/TextShadowBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/button_custom_bg"
+            android:drawableLeft="@drawable/ic_more"
+            android:focusable="false"
+            android:text="More"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_menu_edit_note_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#9000"
+        android:padding="5.0dp"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/btn_note_list_delete"
+            style="@style/TextShadowBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom_bg"
+            android:drawableLeft="@drawable/delete"
+            android:enabled="false"
+            android:focusable="false"
+            android:singleLine="true"
+            android:text="Delete (0)"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_note_list_select_deselect"
+            style="@style/TextShadowBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom_bg"
+            android:focusable="false"
+            android:singleLine="true"
+            android:text="Selec None"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/btn_note_list_cancel_edit"
+            style="@style/TextShadowBlack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_weight="1"
+            android:background="@drawable/button_custom_bg"
+            android:focusable="false"
+            android:singleLine="true"
+            android:text="Cancel"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</FrameLayout>
