@@ -23,6 +23,8 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 
 import net.micode.notes.R;
+import net.micode.notes.customwidget.ActionItem;
+import net.micode.notes.customwidget.QuickAction;
 import net.micode.notes.data.Notes;
 import net.micode.notes.data.Notes.NoteColumns;
 import net.micode.notes.gtask.remote.GTaskSyncService;
@@ -54,15 +56,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -140,6 +139,7 @@ public class NotesListActivity extends Activity implements OnClickListener,
 
     private final static int REQUEST_CODE_OPEN_NODE = 102;
     private final static int REQUEST_CODE_NEW_NODE  = 103;
+    QuickAction quickAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +153,51 @@ public class NotesListActivity extends Activity implements OnClickListener,
          */
         setAppInfoFromRawRes();
         mIsNoteListInEditMode = false;
+        
+        // TODO setup quickaction item for more button
+        ActionItem mQANewFolderItem = new ActionItem(0, "New Folder", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        ActionItem mQAEditListItem = new ActionItem(1, "Edit List", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        ActionItem mQAExportItem = new ActionItem(2, "Export Text", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        ActionItem mQASyncItem = new ActionItem(3, "Sync", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        ActionItem mQASettingsItem = new ActionItem(4, "Settings", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        
+        mQANewFolderItem.setSticky(true);
+        mQAEditListItem.setSticky(true);
+        mQAExportItem.setSticky(true);
+        mQASyncItem.setSticky(true);
+        mQASettingsItem.setSticky(true);
+        
+        quickAction = new QuickAction(this, QuickAction.VERTICAL);
+        quickAction.addActionItem(mQANewFolderItem);
+        quickAction.addActionItem(mQAEditListItem);
+        quickAction.addActionItem(mQAExportItem);
+        quickAction.addActionItem(mQASyncItem);
+        quickAction.addActionItem(mQASettingsItem);
+        
+        quickAction.setAnimStyle(QuickAction.ANIM_REFLECT);
+        // Set listener for action item clicked
+		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {			
+			@Override
+			public void onItemClick(QuickAction source, int pos, int actionId) {				
+				// ActionItem actionItem = quickAction.getActionItem(pos);
+                // actionItem.getTitle()
+				//here we can filter which action item was clicked with pos or actionId parameter
+				switch (actionId) {
+				case 0:
+					break;
+				case 1: // edit list
+					setListChoiceMode(!mIsNoteListInEditMode);
+					break;
+				case 2:
+					break;
+				case 3:
+					break;
+				case 4:
+					break;
+				}
+				quickAction.dismiss();
+			}
+		});
     }
     
     /**
@@ -213,7 +258,6 @@ public class NotesListActivity extends Activity implements OnClickListener,
                     try {
                         in.close();
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -330,12 +374,10 @@ public class NotesListActivity extends Activity implements OnClickListener,
 //        }
 //
 //        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//            // TODO Auto-generated method stub
 //            return false;
 //        }
 //
 //        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//            // TODO Auto-generated method stub
 //            return false;
 //        }
 //
@@ -389,67 +431,67 @@ public class NotesListActivity extends Activity implements OnClickListener,
 //        }
 //    }
 
-    private class NewNoteOnTouchListener implements OnTouchListener {
-
-        public boolean onTouch(View v, MotionEvent event) {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    Display display = getWindowManager().getDefaultDisplay();
-                    int screenHeight = display.getHeight();
-                    int newNoteViewHeight = mAddNewNote.getHeight();
-                    int start = screenHeight - newNoteViewHeight;
-                    int eventY = start + (int) event.getY();
-                    /**
-                     * Minus TitleBar's height
-                     */
-                    if (mState == ListEditState.SUB_FOLDER) {
-                        eventY -= mTitleBar.getHeight();
-                        start -= mTitleBar.getHeight();
-                    }
-                    /**
-                     * HACKME:When click the transparent part of "New Note" button, dispatch
-                     * the event to the list view behind this button. The transparent part of
-                     * "New Note" button could be expressed by formula y=-0.12x+94（Unit:pixel）
-                     * and the line top of the button. The coordinate based on left of the "New
-                     * Note" button. The 94 represents maximum height of the transparent part.
-                     * Notice that, if the background of the button changes, the formula should
-                     * also change. This is very bad, just for the UI designer's strong requirement.
-                     */
-                    if (event.getY() < (event.getX() * (-0.12) + 94)) {
-                        View view = mNotesListView.getChildAt(mNotesListView.getChildCount() - 1
-                                - mNotesListView.getFooterViewsCount());
-                        if (view != null && view.getBottom() > start
-                                && (view.getTop() < (start + 94))) {
-                            mOriginY = (int) event.getY();
-                            mDispatchY = eventY;
-                            event.setLocation(event.getX(), mDispatchY);
-                            mDispatch = true;
-                            return mNotesListView.dispatchTouchEvent(event);
-                        }
-                    }
-                    break;
-                }
-                case MotionEvent.ACTION_MOVE: {
-                    if (mDispatch) {
-                        mDispatchY += (int) event.getY() - mOriginY;
-                        event.setLocation(event.getX(), mDispatchY);
-                        return mNotesListView.dispatchTouchEvent(event);
-                    }
-                    break;
-                }
-                default: {
-                    if (mDispatch) {
-                        event.setLocation(event.getX(), mDispatchY);
-                        mDispatch = false;
-                        return mNotesListView.dispatchTouchEvent(event);
-                    }
-                    break;
-                }
-            }
-            return false;
-        }
-
-    };
+//    private class NewNoteOnTouchListener implements OnTouchListener {
+//
+//        public boolean onTouch(View v, MotionEvent event) {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN: {
+//                    Display display = getWindowManager().getDefaultDisplay();
+//                    int screenHeight = display.getHeight();
+//                    int newNoteViewHeight = mAddNewNote.getHeight();
+//                    int start = screenHeight - newNoteViewHeight;
+//                    int eventY = start + (int) event.getY();
+//                    /**
+//                     * Minus TitleBar's height
+//                     */
+//                    if (mState == ListEditState.SUB_FOLDER) {
+//                        eventY -= mTitleBar.getHeight();
+//                        start -= mTitleBar.getHeight();
+//                    }
+//                    /**
+//                     * HACKME:When click the transparent part of "New Note" button, dispatch
+//                     * the event to the list view behind this button. The transparent part of
+//                     * "New Note" button could be expressed by formula y=-0.12x+94（Unit:pixel）
+//                     * and the line top of the button. The coordinate based on left of the "New
+//                     * Note" button. The 94 represents maximum height of the transparent part.
+//                     * Notice that, if the background of the button changes, the formula should
+//                     * also change. This is very bad, just for the UI designer's strong requirement.
+//                     */
+//                    if (event.getY() < (event.getX() * (-0.12) + 94)) {
+//                        View view = mNotesListView.getChildAt(mNotesListView.getChildCount() - 1
+//                                - mNotesListView.getFooterViewsCount());
+//                        if (view != null && view.getBottom() > start
+//                                && (view.getTop() < (start + 94))) {
+//                            mOriginY = (int) event.getY();
+//                            mDispatchY = eventY;
+//                            event.setLocation(event.getX(), mDispatchY);
+//                            mDispatch = true;
+//                            return mNotesListView.dispatchTouchEvent(event);
+//                        }
+//                    }
+//                    break;
+//                }
+//                case MotionEvent.ACTION_MOVE: {
+//                    if (mDispatch) {
+//                        mDispatchY += (int) event.getY() - mOriginY;
+//                        event.setLocation(event.getX(), mDispatchY);
+//                        return mNotesListView.dispatchTouchEvent(event);
+//                    }
+//                    break;
+//                }
+//                default: {
+//                    if (mDispatch) {
+//                        event.setLocation(event.getX(), mDispatchY);
+//                        mDispatch = false;
+//                        return mNotesListView.dispatchTouchEvent(event);
+//                    }
+//                    break;
+//                }
+//            }
+//            return false;
+//        }
+//
+//    };
 
     private void startAsyncNotesListQuery() {
         String selection = (mCurrentFolderId == Notes.ID_ROOT_FOLDER) ? ROOT_FOLDER_SELECTION
@@ -610,7 +652,9 @@ public class NotesListActivity extends Activity implements OnClickListener,
                 break;
                 
             case R.id.btn_note_list_more:
-            	setListChoiceMode(!mIsNoteListInEditMode);
+            	// TODO do for more :D
+            	// setListChoiceMode(!mIsNoteListInEditMode);
+            	quickAction.show(v);
             	break;
             	
             case R.id.btn_note_list_delete:
@@ -631,7 +675,21 @@ public class NotesListActivity extends Activity implements OnClickListener,
             	break;
             	
             case R.id.btn_note_list_select_deselect:
-//				if (mNotesListAdapter.isAllSelected()) {
+				if (mNotesListAdapter.isAllSelected()) {
+					mNotesListAdapter.selectAll(false);
+					mBtnEditNoteSelectDeselect.setText(R.string.menu_select_all);
+				} else {
+					mNotesListAdapter.selectAll(true);
+					mBtnEditNoteSelectDeselect.setText(R.string.menu_deselect_all);
+				}
+				// update delete button status
+				if (mNotesListAdapter.getSelectedCount() > 0) {
+                	mBtnEditNoteDelete.setEnabled(true);
+                } else {
+                	mBtnEditNoteDelete.setEnabled(false);
+                }
+                mBtnEditNoteDelete.setText("Delete (" + mNotesListAdapter.getSelectedCount() + ")");
+                
 //					item.setChecked(true);
 //					item.setTitle(R.string.menu_deselect_all);
 //				} else {
@@ -727,8 +785,6 @@ public class NotesListActivity extends Activity implements OnClickListener,
          */
         etName.addTextChangedListener(new TextWatcher() {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO Auto-generated method stub
-
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -740,8 +796,6 @@ public class NotesListActivity extends Activity implements OnClickListener,
             }
 
             public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
             }
         });
     }
