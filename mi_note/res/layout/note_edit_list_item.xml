@@ -23,6 +23,7 @@
     <CheckBox
         android:id="@+id/cb_edit_item"
         android:layout_width="wrap_content"
+        android:button="@drawable/custom_checkbox"
         android:layout_height="28dip"
         android:checked="false"
         android:focusable="false"
