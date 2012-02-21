@@ -155,10 +155,10 @@ public class NotesListActivity extends Activity implements OnClickListener,
         mIsNoteListInEditMode = false;
         
         // TODO setup quickaction item for more button
-        ActionItem mQANewFolderItem = new ActionItem(0, "New Folder", getResources().getDrawable(R.drawable.bg_btn_set_color));
-        ActionItem mQAEditListItem = new ActionItem(1, "Edit List", getResources().getDrawable(R.drawable.bg_btn_set_color));
-        ActionItem mQAExportItem = new ActionItem(2, "Export Text", getResources().getDrawable(R.drawable.bg_btn_set_color));
-        ActionItem mQASyncItem = new ActionItem(3, "Sync", getResources().getDrawable(R.drawable.bg_btn_set_color));
+        ActionItem mQANewFolderItem = new ActionItem(0, "New Folder", getResources().getDrawable(R.drawable.ic_menu_new_folder));
+        ActionItem mQAEditListItem = new ActionItem(1, "Edit List", getResources().getDrawable(R.drawable.ic_menu_edit_list));
+        ActionItem mQAExportItem = new ActionItem(2, "Export Text", getResources().getDrawable(R.drawable.ic_menu_export));
+        ActionItem mQASyncItem = new ActionItem(3, "Sync", getResources().getDrawable(R.drawable.ic_menu_sync));
         ActionItem mQASettingsItem = new ActionItem(4, "Settings", getResources().getDrawable(R.drawable.bg_btn_set_color));
         
         mQANewFolderItem.setSticky(true);
@@ -172,7 +172,7 @@ public class NotesListActivity extends Activity implements OnClickListener,
         quickAction.addActionItem(mQAEditListItem);
         quickAction.addActionItem(mQAExportItem);
         quickAction.addActionItem(mQASyncItem);
-        quickAction.addActionItem(mQASettingsItem);
+        // quickAction.addActionItem(mQASettingsItem);
         
         quickAction.setAnimStyle(QuickAction.ANIM_REFLECT);
         // Set listener for action item clicked
@@ -183,16 +183,29 @@ public class NotesListActivity extends Activity implements OnClickListener,
                 // actionItem.getTitle()
 				//here we can filter which action item was clicked with pos or actionId parameter
 				switch (actionId) {
-				case 0:
+				case 0:		// new folder
+					showCreateOrModifyFolderDialog(true);
 					break;
-				case 1: // edit list
+				case 1: 	// edit list
 					setListChoiceMode(!mIsNoteListInEditMode);
 					break;
-				case 2:
+				case 2:		// export text
+					exportNoteToText();
 					break;
-				case 3:
+				case 3:		// sync 
+					/*if (isSyncMode()) {
+	                    if (TextUtils.equals(item.getTitle(), getString(R.string.menu_sync))) {
+	                        GTaskSyncService.startSync(NotesListActivity.this);
+	                    } else {
+	                        GTaskSyncService.cancelSync(NotesListActivity.this);
+	                    }
+	                } else {
+	                    startPreferenceActivity();
+	                }*/
+					startPreferenceActivity();
 					break;
-				case 4:
+				case 4:		// settings
+					startPreferenceActivity();
 					break;
 				}
 				quickAction.dismiss();
