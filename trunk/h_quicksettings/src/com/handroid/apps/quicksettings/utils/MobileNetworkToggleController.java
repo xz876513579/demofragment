@@ -3,13 +3,10 @@ package com.handroid.apps.quicksettings.utils;
 import java.lang.reflect.Method;
 
 import android.content.Context;
-import android.content.Intent;
-import android.database.CursorJoiner.Result;
 import android.net.ConnectivityManager;
 import android.os.Message;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 
@@ -19,8 +16,8 @@ import com.handroid.apps.quicksettings.R;
 public class MobileNetworkToggleController extends AbtractToggleController{
 	
 	private Button btnToggleMobileNetwork;
-	private final int MSG_DISABLE_BTN_MOBILE_NETWORK 	= 103;
-	private final int MSG_UPDATE_BTN_MOBILE_NETWORK 	= 104;
+//	private final int MSG_DISABLE_BTN_MOBILE_NETWORK 	= 103;
+//	private final int MSG_UPDATE_BTN_MOBILE_NETWORK 	= 104;
 	
 	private final int MSG_DATA_DISCONNECTED 			= 105;
 	private final int MSG_DATA_CONNECTING				= 106;
@@ -31,12 +28,18 @@ public class MobileNetworkToggleController extends AbtractToggleController{
 	public MobileNetworkToggleController(Context context) {
 		super(context);
 		telMan = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-		telMan.listen(phoneStateListener,PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
+		Log.w("mapp", ">>> Register PhoneState Listener");
+		telMan.listen(phoneStateListener, PhoneStateListener.LISTEN_DATA_CONNECTION_STATE);
+	}
+	
+	public void unregisterPhoneStateListener() {
+		Log.d("mapp", ">>> Unregister PhoneState Listener");
+		telMan.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
 	}
 	
 	private PhoneStateListener phoneStateListener = new PhoneStateListener(){
 		public void onDataConnectionStateChanged(int state) {
-			Log.i("mapp", ">>> phone state change:" + state);
+			// Log.i("mapp", ">>> phone state change:" + state);
 			switch (state) {
 			case TelephonyManager.DATA_DISCONNECTED:
 				// mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_BTN_MOBILE_NETWORK, false));
@@ -62,6 +65,7 @@ public class MobileNetworkToggleController extends AbtractToggleController{
 	@Override
 	public void doOnActivityPause() {
 		super.doOnActivityPause();
+		unregisterPhoneStateListener();
 	}
 
 	@Override
@@ -195,7 +199,7 @@ public class MobileNetworkToggleController extends AbtractToggleController{
 		} catch (Exception localException) {
 			Log.e(TAG, ">>> get mobile State ERROR: " + localException.toString());
 		}
-		Log.i("mapp", ">>> mobile network enable=" + result);
+		// Log.i("mapp", ">>> mobile network enable=" + result);
 		return result;
 	}
 }

@@ -8,14 +8,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
@@ -27,7 +29,7 @@ import com.handroid.apps.quicksettings.utils.WifiToggleController;
 
 public class MainActivity extends Activity {
 	
-	private final String TAG = "QuickSettings";
+	// private final String TAG = "QuickSettings";
 	
 	Button btnToggleWifi;
 	Button btnToggleWifiSettings;
@@ -54,6 +56,7 @@ public class MainActivity extends Activity {
 	
 	// private DataConManager mDataConManager;
 	private AudioManager mAudioManager;
+	private MediaPlayer mMediaRingtonePlayer;
 	
 	private BluetoothToggleController mBluetoothToggleController;
 	private WifiToggleController mWifiToggleController;
@@ -62,7 +65,7 @@ public class MainActivity extends Activity {
 	private AirplaneToggleController mAirplaneToggleController;
 	private MobileNetworkToggleController mMobileNetworkToggleController;
 	
-	private final int MSG_MOBILE_NETWORK_STATE 	= 1002;
+	// private final int MSG_MOBILE_NETWORK_STATE 	= 1002;
 	
     /** Called when the activity is first created. */
     @Override
@@ -71,8 +74,8 @@ public class MainActivity extends Activity {
         
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Have the system blur any windows behind this one.
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
-                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
+//                WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         
         mBluetoothToggleController = new BluetoothToggleController(getApplicationContext());
         mWifiToggleController = new WifiToggleController(getApplicationContext());
@@ -158,13 +161,14 @@ public class MainActivity extends Activity {
         mMobileNetworkToggleController.initToggleButton(arrPhoneMobileNetworkBtnToggle);
         
         updateSoundVibrateButtonState();
+        
     }
     
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-				&& event.getAction() == KeyEvent.ACTION_DOWN)
-    		return true;
+//		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+//				&& event.getAction() == KeyEvent.ACTION_DOWN)
+//    		return true;
     	return super.dispatchKeyEvent(event);
     }
     
@@ -180,6 +184,8 @@ public class MainActivity extends Activity {
     	mMobileNetworkToggleController.doOnActivityResume();
 		registerReceiver(batteryReceiver, new IntentFilter(
 				Intent.ACTION_BATTERY_CHANGED));
+		mMediaRingtonePlayer = MediaPlayer.create(getApplicationContext(),
+				R.raw.crystal_ring);
 	};
     
     @Override
@@ -193,27 +199,20 @@ public class MainActivity extends Activity {
     	mMobileNetworkToggleController.doOnActivityPause();
     	
     	unregisterReceiver(batteryReceiver);
+    	if (mMediaRingtonePlayer != null) {
+    		mMediaRingtonePlayer.release();
+    	}
     }
     
-    /*private void checkAllStateAndUpdateUI(){ 
-    	updateDataNetworkButtonUI();
-    }*/
-
-    /*private void updateDataNetworkButtonUI() {
-		if (mDataConManager.getMobileDataEnabled()) {
-			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_on, 0, 0);
-		} else {
-			btnToggleMobileNetwork.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_network_off, 0, 0);
-		}
-    }*/
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    }
     
     private BroadcastReceiver batteryReceiver = new BroadcastReceiver() {
     	@Override
     	public void onReceive( Context context, Intent intent ) {
 	    	int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-	    	/*int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-	    	if ((level >= 0) && (scale > 0.0F))
-	    		level = Math.round(level / scale * 100.0F);*/
 	    	
 	    	int temp = Math.round(intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) / 10.0F);
 	    	
@@ -222,18 +221,6 @@ public class MainActivity extends Activity {
     		btnToggleBattery.setText(level + getString(R.string.txt_percent) + "\n" + temp + getString(R.string.txt_degree));
     	}
 	};
-    
-    @Override
-    protected void onStart() {
-    	super.onStart();
-    	overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
-    }
-    
-    @Override
-    protected void onStop() {
-    	super.onStop();
-    	overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
-    };
     
     private void updateSoundVibrateButtonState() {
     	if (mAudioManager == null) {
@@ -254,6 +241,8 @@ public class MainActivity extends Activity {
 		case AudioManager.RINGER_MODE_VIBRATE:
 			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_vibration_on, 0, 0);
 			btnToggleSoundVibrate.setText("Vibrate\nMode");
+			break;
+		default:
 			break;
 		}
     }
@@ -302,7 +291,7 @@ public class MainActivity extends Activity {
 			// ----------- FINISH QUICK SETTINGS APP
 			case R.id.btn_qsettings_done:
 				finish();
-				overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
+				// overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
 				break;
 				
 			// ----------- BLUETOOTH SETTINGS
@@ -353,7 +342,8 @@ public class MainActivity extends Activity {
 			// ----------- BATTERY
 			case R.id.btn_togle_battery:
 				// mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockGeneric");
-				mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockPattern");
+				mIntent = new Intent().setClassName("com.android.settings",
+						"com.android.settings.fuelgauge.PowerUsageSummary");
 				mIntent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
 				try {
 					startActivity(mIntent);
@@ -368,12 +358,35 @@ public class MainActivity extends Activity {
 			// ----------- PHONE LIGHT
 			case R.id.btn_togle_light:
 				BaseApplication.makeToastMsg("Coming soon!");
+				Settings.System.putInt(getApplicationContext()
+						.getContentResolver(),
+						Settings.System.SCREEN_BRIGHTNESS, 20);
+
 				break;
 
 			// ----------- PHONE VIBRATE
 			case R.id.btn_togle_sound_vibrate:
-				if (mAudioManager != null)
+				if (mAudioManager != null) {
 					mAudioManager.setRingerMode((mAudioManager.getRingerMode() + 1) % 3);
+					switch (mAudioManager.getRingerMode()) {
+					case AudioManager.RINGER_MODE_VIBRATE:
+						// play vibrate
+						((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
+								.vibrate(200);
+						break;
+						
+					case AudioManager.RINGER_MODE_NORMAL:
+						// play vibrate
+						((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
+								.vibrate(300);
+						// play sound
+						mMediaRingtonePlayer.start();
+						break;
+					
+					default:
+						break;
+					}
+				}
 				updateSoundVibrateButtonState();
 				break;
 				
