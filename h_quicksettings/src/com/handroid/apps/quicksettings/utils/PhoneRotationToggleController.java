@@ -16,7 +16,8 @@ public class PhoneRotationToggleController extends AbtractToggleController{
 
 	@Override
 	public void doOnActivityResume() {
-		// super.doOnActivityResume(); // in this case we don't need to regis any Broadcast, so comment out super calling!
+		// in this case we don't need to regis any Broadcast, so comment out super calling!
+		// super.doOnActivityResume(); 
 		updatePhoneRotationButtonState(isPhoneRotationTurnedOn());
 	}
 	

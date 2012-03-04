@@ -38,7 +38,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="android:windowBackground">@drawable/transparent_background</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:colorForeground">#fff</item>
+        <item name="android:colorForeground">#4fff</item>
     </style>
     
     <style name="TextShadowBlack">
@@ -59,5 +59,18 @@
 		<item name="android:shadowDx">1.1</item>
 		<item name="android:shadowDy">1.1</item>
 	</style>
-    
+	
+	<!-- Standard animations for a non-full-screen window or activity. -->
+    <style name="Animation.QuickSettingsDialog" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+	    
+	<style name="Theme.QuickSettingsDialog">
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowAnimationStyle">@style/Animation.QuickSettingsDialog</item>	    
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorForeground">#9fff</item>
+    </style>    
 </resources>

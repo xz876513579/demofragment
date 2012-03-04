@@ -2,7 +2,6 @@ package com.handroid.apps.quicksettings;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 public class BaseApplication extends Application{
@@ -14,8 +13,7 @@ public class BaseApplication extends Application{
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		// Log.i(TAG, "App, on create!");
-		mAppContext = getApplicationContext();
+		mAppContext = this;/*getApplicationContext()*/;
 	}
 	
 	public static void makeToastMsg(String msg) {
@@ -24,7 +22,7 @@ public class BaseApplication extends Application{
 			mAppToast.show();
 		} else {
 			mAppToast.setText(msg);
-			mAppToast.cancel();
+			// mAppToast.cancel();
 			mAppToast.show();
 		}
 	}
