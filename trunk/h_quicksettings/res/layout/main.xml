@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="320dp"
+    android:layout_height="345dp"
     android:layout_gravity="center" >
 
-    <ImageView
+    <com.handroid.apps.quicksettings.widget.ImageViewRounded
         android:id="@+id/imv_wallpaper"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/wallpaper6"
-        android:layout_margin="7dp" android:scaleType="centerInside" />
+        android:layout_width="305dp"
+        android:layout_height="332dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpaper4" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="5dp"
-        android:background="@drawable/frame_light"
+        android:background="@drawable/frame_trans"
         android:orientation="vertical" >
 
         <com.handroid.apps.quicksettings.widget.CoolTextView
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="QUICK SYSTEM SETTINGS"
+            android:text="@string/tv_app_panel_text"
             android:textColor="@color/solid_white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -44,9 +45,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_wifi"
                 android:gravity="center"
-                android:text="WiFi"
+                android:text="@string/btn_text_wifi"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -59,9 +60,9 @@
                 android:drawableTop="@drawable/ic_wifi_settings"
                 android:enabled="false"
                 android:gravity="center"
-                android:text="WiFi Settings"
+                android:text="@string/btn_text_wifi_settings"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -73,9 +74,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_bluetooth_off"
                 android:gravity="center"
-                android:text="Bluetooth"
+                android:text="@string/btn_text_bluetooth"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -88,9 +89,9 @@
                 android:drawableTop="@drawable/ic_bluetooth_settings_off"
                 android:enabled="false"
                 android:gravity="center"
-                android:text="Bluetooth Settings"
+                android:text="@string/btn_text_bluetooth_set"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -108,9 +109,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_manage_apps"
                 android:gravity="center"
-                android:text="Manage Apps"
+                android:text="@string/btn_text_mange_apps"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -122,9 +123,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_network_off"
                 android:gravity="center"
-                android:text="Mobile Data"
+                android:text="@string/btn_text_mobile_data"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -136,9 +137,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_light_hight"
                 android:gravity="center"
-                android:text="Back Light"
+                android:text="@string/btn_text_back_light"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -150,9 +151,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_vibration_off"
                 android:gravity="center"
-                android:text="Phone Vibrate"
+                android:text="@string/btn_text_vibrate_normal"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -170,9 +171,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_air_off"
                 android:gravity="center"
-                android:text="Airplane Mode"
+                android:text="@string/btn_text_airplane"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -184,9 +185,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_gps_off"
                 android:gravity="center"
-                android:text="GPS"
+                android:text="@string/btn_text_gps"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -198,9 +199,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_auto_rotation_off"
                 android:gravity="center"
-                android:text="Phone Rotation"
+                android:text="@string/btn_text_rotation"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <com.handroid.apps.quicksettings.widget.CoolButton
@@ -212,9 +213,9 @@
                 android:background="@drawable/button_custom_bg"
                 android:drawableTop="@drawable/ic_batt"
                 android:gravity="center"
-                android:text="Battery"
+                android:text="@string/btn_text_battery"
                 android:textColor="@color/solid_white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -226,7 +227,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/button_custom_bg"
             android:gravity="center"
-            android:text="DONE"
+            android:text="@string/btn_text_done"
             android:textColor="@color/solid_white"
             android:textSize="16sp"
             android:textStyle="bold" />

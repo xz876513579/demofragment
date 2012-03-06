@@ -3,14 +3,12 @@ package com.handroid.apps.quicksettings.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 public class CoolButton extends Button {
 	
 	private Typeface mTypeface;
-	private ProgressBar mProgressBar;
+	// private ProgressBar mProgressBar;
 
 	public CoolButton(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);

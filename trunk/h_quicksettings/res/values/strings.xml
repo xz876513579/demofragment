@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">H_QuickSettings</string>
     <string name="activity_not_found">Couldn\'t start this action, Please try again later!</string>
-    <string name="txt_degree">ºC</string>    
+    <string name="txt_degree">ºC</string>
     <string name="txt_percent">%</string>
-    
+    <string name="tv_app_panel_text">QUICK SYSTEM SETTINGS</string>
+    <string name="btn_text_wifi">Wi-Fi</string>
+    <string name="btn_text_wifi_settings">WiFi Settings</string>
+    <string name="btn_text_bluetooth">Bluetooth</string>
+    <string name="btn_text_bluetooth_set">Bluetooth Settings</string>
+    <string name="btn_text_mange_apps">Manage Apps</string>
+    <string name="btn_text_mobile_data">Mobile Data</string>
+    <string name="btn_text_back_light">Back Light</string>
+    <string name="btn_text_vibrate_normal">Normal Mode</string>
+    <string name="btn_text_vibrate_silent">Silent Mode</string>
+    <string name="btn_text_vibrate_vibrate">Vibrate Mode</string>
+    <string name="btn_text_airplane">Airplane Mode</string>
+    <string name="btn_text_gps">GPS</string>
+    <string name="btn_text_rotation">Phone Rotation</string>
+    <string name="btn_text_battery"><xliff:g id="level">%1$s</xliff:g>º/o\n<xliff:g id="temp">%2$s</xliff:g>ºC</string>
+	<string name="btn_text_done">DONE</string>
 </resources>
