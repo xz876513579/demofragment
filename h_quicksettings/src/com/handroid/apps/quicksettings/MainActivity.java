@@ -218,7 +218,9 @@ public class MainActivity extends Activity {
 	    	
 	    	// temp = temp * 9 / 5 + 32; // enable this line if we want using ºF
 	    	// android.util.Log.i(TAG, "--> battery: " + level + "%" + " " + (temp / 10.0F) + "C");
-    		btnToggleBattery.setText(level + getString(R.string.txt_percent) + "\n" + temp + getString(R.string.txt_degree));
+    		// btnToggleBattery.setText(getString(R.string.btn_text_battery, level, temp));
+			btnToggleBattery.setText(level + getString(R.string.txt_percent)
+					+ "\n" + temp + getString(R.string.txt_degree));
     	}
 	};
     
@@ -232,15 +234,15 @@ public class MainActivity extends Activity {
     	switch (mAudioManager.getRingerMode()) {
 		case AudioManager.RINGER_MODE_SILENT:
 			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_ringer_off, 0, 0);
-			btnToggleSoundVibrate.setText("Silent\nMode");
+			btnToggleSoundVibrate.setText(R.string.btn_text_vibrate_silent);
 			break;
 		case AudioManager.RINGER_MODE_NORMAL:
 			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_ringer_on, 0, 0);
-			btnToggleSoundVibrate.setText("Normal\nMode");
+			btnToggleSoundVibrate.setText(R.string.btn_text_vibrate_normal);
 			break;
 		case AudioManager.RINGER_MODE_VIBRATE:
 			btnToggleSoundVibrate.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_vibration_on, 0, 0);
-			btnToggleSoundVibrate.setText("Vibrate\nMode");
+			btnToggleSoundVibrate.setText(R.string.btn_text_vibrate_vibrate);
 			break;
 		default:
 			break;
