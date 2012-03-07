@@ -20,16 +20,31 @@
         android:background="@drawable/frame_trans"
         android:orientation="vertical" >
 
-        <com.handroid.apps.quicksettings.widget.CoolTextView
-            style="@style/TextShadowBlack"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/tv_app_panel_text"
-            android:textColor="@color/solid_white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center" >
+
+            <com.handroid.apps.quicksettings.widget.CoolTextView
+                style="@style/TextShadowBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/tv_app_panel_text"
+                android:textColor="@color/solid_white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/btn_toggle_skins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/ic_skins" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
