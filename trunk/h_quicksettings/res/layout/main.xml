@@ -23,13 +23,13 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" >
+            android:layout_gravity="center" 
+            android:layout_marginBottom="10dp">
 
             <com.handroid.apps.quicksettings.widget.CoolTextView
                 style="@style/TextShadowBlack"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/tv_app_panel_text"
