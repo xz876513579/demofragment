@@ -14,24 +14,39 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class ImageViewRounded extends ImageView {
+    
+    private BitmapDrawable mViewDrawable;
+    private Bitmap mFullSizeBitmap;
+    private Bitmap mRoundBitmap;
+    private Bitmap mScaledBitmap;
 
 	public ImageViewRounded(Context context) {
 		super(context);
+		initRoundImage();
 	}
 
 	public ImageViewRounded(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		initRoundImage();
 	}
 
 	public ImageViewRounded(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		initRoundImage();
+	}
+	
+	private void initRoundImage() {
+	    mViewDrawable = (BitmapDrawable) getDrawable();
+	    if (mViewDrawable != null) {
+	        mFullSizeBitmap = mViewDrawable.getBitmap();
+	    }
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		BitmapDrawable drawable = (BitmapDrawable) getDrawable();
+	    // mViewDrawable = (BitmapDrawable) getDrawable();
 
-		if (drawable == null) {
+		if (mViewDrawable == null) {
 			return;
 		}
 
@@ -39,24 +54,27 @@ public class ImageViewRounded extends ImageView {
 			return;
 		}
 
-		Bitmap fullSizeBitmap = drawable.getBitmap();
+		// Bitmap fullSizeBitmap = mViewDrawable.getBitmap();
 
 		int scaledWidth = getMeasuredWidth();
 		int scaledHeight = getMeasuredHeight();
 
-		Bitmap mScaledBitmap;
-		if (scaledWidth == fullSizeBitmap.getWidth()
-				&& scaledHeight == fullSizeBitmap.getHeight()) {
-			mScaledBitmap = fullSizeBitmap;
-		} else {
-			mScaledBitmap = Bitmap.createScaledBitmap(fullSizeBitmap,
-					scaledWidth, scaledHeight, true /* filter */);
+        if (mScaledBitmap == null && scaledWidth > 0 && scaledHeight > 0) {
+    		if (scaledWidth == mFullSizeBitmap.getWidth()
+    				&& scaledHeight == mFullSizeBitmap.getHeight()) {
+    			mScaledBitmap = mFullSizeBitmap;
+    		} else {
+    			mScaledBitmap = Bitmap.createScaledBitmap(mFullSizeBitmap,
+    					scaledWidth, scaledHeight, true /* filter */);
+    		}
 		}
 
-		Bitmap roundBitmap = getRoundedCornerBitmap(getContext(),
-				mScaledBitmap, 3, scaledWidth, scaledHeight, false, false,
-				false, false);
-		canvas.drawBitmap(roundBitmap, 0, 0, null);
+        if (mRoundBitmap == null) {
+    		mRoundBitmap = getRoundedCornerBitmap(getContext(),
+    				mScaledBitmap, 3, scaledWidth, scaledHeight, false, false,
+    				false, false);
+		}
+		canvas.drawBitmap(mRoundBitmap, 0, 0, null);
 	}
 
 	public Bitmap getRoundedCornerBitmap(Context context, Bitmap input,
