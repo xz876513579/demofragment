@@ -1,6 +1,10 @@
 package com.handroid.apps.quicksettings;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -15,10 +19,14 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
@@ -66,6 +74,10 @@ public class MainActivity extends Activity {
 			R.drawable.wall_trans_white, R.drawable.wall_light, 
 			R.drawable.wall_dark };
 	int wallpaperIdx = 0;
+	
+	ImageView btnCallSettings;
+	Dialog mDlgMenuAppSettings;
+	NotificationManager notificationManager;
 	
 	// private DataConManager mDataConManager;
 	private AudioManager mAudioManager;
@@ -157,8 +169,10 @@ public class MainActivity extends Activity {
         
         btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);
         btnChangeSkins.setOnClickListener(viewOnClickListener);
-        
         imvBacgroundSkins = (ImageViewRounded) findViewById(R.id.imv_wallpaper);
+        
+        btnCallSettings = (ImageView) findViewById(R.id.btn_toggle_info);
+        btnCallSettings.setOnClickListener(viewOnClickListener);
         
         Button[] arrBluetoothBtnToggle = new Button[] {btnToggleBluetooth, btnToggleBluetoothSettings};
         mBluetoothToggleController.initToggleButton(arrBluetoothBtnToggle);
@@ -180,6 +194,8 @@ public class MainActivity extends Activity {
         
         updateSoundVibrateButtonState();
         updateWallpaperSkins();
+        
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
     
     private void updateWallpaperSkins() {
@@ -389,24 +405,6 @@ public class MainActivity extends Activity {
 				
 			// ----------- BATTERY
 			case R.id.btn_togle_battery:
-				/* TODO code for showing notification icon for fast access
-				NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		        Notification notification = new Notification(R.drawable.ic_network_on,
-		                "Launch QuickSettingsApp" , System.currentTimeMillis());
-		        // Hide the notification after its selected
-		        notification.flags |= Notification.FLAG_NO_CLEAR;
-		        
-		        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-		        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-		                intent, 0);
-		        notification.setLatestEventInfo(getApplicationContext(),"Quick System Settings App", 
-		                "Press to launch QuickSettingsApp",
-		                pendingIntent);
-		        notificationManager.notify(0, notification);*/
-		        
 				// mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockGeneric");
 				mIntent = new Intent().setClassName("com.android.settings",
 						"com.android.settings.fuelgauge.PowerUsageSummary");
@@ -489,6 +487,69 @@ public class MainActivity extends Activity {
 		                Constant.PREF_WALL_POS, 
 		                wallpaperIdx);
 				updateWallpaperSkins();
+				break;
+
+			case R.id.btn_toggle_info:
+				if (mDlgMenuAppSettings == null) {
+					mDlgMenuAppSettings = new Dialog(MainActivity.this, R.style.Theme_QuickSettingsDialog);
+					mDlgMenuAppSettings.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			        View mMenuLayout = LayoutInflater.from(getApplicationContext()).inflate(
+			                R.layout.app_settings, null);
+			        mDlgMenuAppSettings.setContentView(mMenuLayout);
+			        
+			        Button btnOk = (Button) mMenuLayout.findViewById(R.id.bt_appsetting_ok_id);
+			        btnOk.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							mDlgMenuAppSettings.dismiss();
+						}
+					});
+			        CheckBox mCbShowNotification = (CheckBox) mMenuLayout.findViewById(R.id.radiobtn_show_notification);
+			        mCbShowNotification.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			        	@Override
+			        	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			        		if (isChecked) {
+			        			PreferenceUtils.saveBoolPref(
+			    		                getApplicationContext(), 
+			    		                Constant.PREF_NAME, 
+			    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+			    		                true);
+			    		        Notification notification = new Notification(R.drawable.ic_launcher,
+			    		                "Launch QuickSettingsApp" , System.currentTimeMillis());
+			    		        // Hide the notification after its selected
+			    		        notification.flags |= Notification.FLAG_NO_CLEAR;
+			    		        
+			    		        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+			    		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			    		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+			    		        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+			    		                intent, 0);
+			    		        notification.setLatestEventInfo(getApplicationContext(),"Quick System Settings App", 
+			    		                "Press to launch QuickSettingsApp",
+			    		                pendingIntent);
+			    		        if (notificationManager != null) {
+			    		        	notificationManager.notify(113, notification);
+			    		        }
+			        		} else {
+			        			if (notificationManager != null) {
+			        				PreferenceUtils.saveBoolPref(
+				    		                getApplicationContext(), 
+				    		                Constant.PREF_NAME, 
+				    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+				    		                false);
+			        				notificationManager.cancel(113);
+			        			}
+			        		}
+			        	}
+			        });
+			        mDlgMenuAppSettings.setCancelable(true);
+				}
+				if (!mDlgMenuAppSettings.isShowing()) {
+					mDlgMenuAppSettings.show();
+				} else {
+					mDlgMenuAppSettings.dismiss();
+				}
 				break;
 				
 			default:

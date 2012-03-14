@@ -29,11 +29,10 @@
                 android:id="@+id/btn_toggle_info"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center|left"
+                android:layout_gravity="left"
                 android:layout_marginLeft="3dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_info"
-                android:visibility="gone" />
+                android:src="@drawable/ic_info"/>
 
             <com.handroid.apps.quicksettings.widget.CoolTextView
                 style="@style/TextShadowBlack"

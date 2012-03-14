@@ -72,5 +72,6 @@
         <item name="android:windowBackground">@drawable/transparent_background</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:colorForeground">#9fff</item>
-    </style>    
+    </style>
+    
 </resources>
