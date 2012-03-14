@@ -22,9 +22,8 @@
 
         <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp" >
+            android:layout_height="38dp"
+            android:layout_gravity="top" >
 
             <ImageView
                 android:id="@+id/btn_toggle_info"
@@ -32,16 +31,15 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center|left"
                 android:layout_marginLeft="3dp"
-                android:visibility="gone"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_info" />
-            
+                android:src="@drawable/ic_info"
+                android:visibility="gone" />
+
             <com.handroid.apps.quicksettings.widget.CoolTextView
                 style="@style/TextShadowBlack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_gravity="top|center"
                 android:text="@string/tv_app_panel_text"
                 android:textColor="@color/solid_white"
                 android:textSize="20sp"
@@ -49,11 +47,11 @@
 
             <ImageView
                 android:id="@+id/btn_toggle_skins"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|right"
-                android:layout_marginRight="3dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
                 android:clickable="true"
+                android:scaleType="centerInside"
                 android:src="@drawable/button_skins_bg" />
         </FrameLayout>
 
