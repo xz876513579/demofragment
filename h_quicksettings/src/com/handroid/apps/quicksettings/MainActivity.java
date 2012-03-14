@@ -19,13 +19,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
 import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
 import com.handroid.apps.quicksettings.utils.GpsToggleController;
 import com.handroid.apps.quicksettings.utils.MobileNetworkToggleController;
 import com.handroid.apps.quicksettings.utils.PhoneRotationToggleController;
+import com.handroid.apps.quicksettings.utils.PreferenceUtils;
 import com.handroid.apps.quicksettings.utils.WifiToggleController;
+import com.handroid.apps.quicksettings.widget.ImageViewRounded;
 
 public class MainActivity extends Activity {
 	
@@ -53,6 +56,16 @@ public class MainActivity extends Activity {
 	Button btnToggleAirPlane;
 	
 	Button btnDone;
+	
+	ImageView btnChangeSkins;
+	ImageViewRounded imvBacgroundSkins;
+	int[] wallpapperIds = { R.drawable.wallpaper1, R.drawable.wallpaper2,
+			R.drawable.wallpaper3, R.drawable.wallpaper4,
+			R.drawable.wallpaper5, R.drawable.wallpaper6,
+			R.drawable.wallpaper7, R.drawable.wall_trans,
+			R.drawable.wall_trans_white, R.drawable.wall_light, 
+			R.drawable.wall_dark };
+	int wallpaperIdx = 0;
 	
 	// private DataConManager mDataConManager;
 	private AudioManager mAudioManager;
@@ -142,6 +155,11 @@ public class MainActivity extends Activity {
         btnToggleAirPlane = (Button) findViewById(R.id.btn_togle_airplane);
         btnToggleAirPlane.setOnClickListener(viewOnClickListener);
         
+        btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);
+        btnChangeSkins.setOnClickListener(viewOnClickListener);
+        
+        imvBacgroundSkins = (ImageViewRounded) findViewById(R.id.imv_wallpaper);
+        
         Button[] arrBluetoothBtnToggle = new Button[] {btnToggleBluetooth, btnToggleBluetoothSettings};
         mBluetoothToggleController.initToggleButton(arrBluetoothBtnToggle);
         
@@ -161,7 +179,18 @@ public class MainActivity extends Activity {
         mMobileNetworkToggleController.initToggleButton(arrPhoneMobileNetworkBtnToggle);
         
         updateSoundVibrateButtonState();
-        
+        updateWallpaperSkins();
+    }
+    
+    private void updateWallpaperSkins() {
+    	wallpaperIdx = PreferenceUtils.getIntPref(
+                getApplicationContext(), 
+                Constant.PREF_NAME, 
+                Constant.PREF_WALL_POS, 
+                0);
+		imvBacgroundSkins.setImageDrawable(getResources().getDrawable(
+				wallpapperIds[wallpaperIdx]));
+		imvBacgroundSkins.refreshSkinBackground();
     }
     
     @Override
@@ -219,6 +248,23 @@ public class MainActivity extends Activity {
 	    	// temp = temp * 9 / 5 + 32; // enable this line if we want using ºF
 	    	// android.util.Log.i(TAG, "--> battery: " + level + "%" + " " + (temp / 10.0F) + "C");
     		// btnToggleBattery.setText(getString(R.string.btn_text_battery, level, temp));
+	    	if (level <= 100 && level > 90) {
+	    		btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_100, 0, 0);
+	    	} else {
+	    		if (level < 90 && level > 65) {
+	    			btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_75, 0, 0);
+	    		} else {
+	    			if (level < 65 && level > 35) {
+	    				btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_50, 0, 0);
+	    			} else {
+	    				if (level < 35 && level > 15) {
+	    					btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_25, 0, 0);	    					
+	    				} else {
+	    					btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_10, 0, 0);
+	    				}
+	    			}
+	    		}
+	    	}
 			btnToggleBattery.setText(level + getString(R.string.txt_percent)
 					+ "\n" + temp + getString(R.string.txt_degree));
     	}
@@ -343,6 +389,24 @@ public class MainActivity extends Activity {
 				
 			// ----------- BATTERY
 			case R.id.btn_togle_battery:
+				/* TODO code for showing notification icon for fast access
+				NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		        Notification notification = new Notification(R.drawable.ic_network_on,
+		                "Launch QuickSettingsApp" , System.currentTimeMillis());
+		        // Hide the notification after its selected
+		        notification.flags |= Notification.FLAG_NO_CLEAR;
+		        
+		        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+		        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0,
+		                intent, 0);
+		        notification.setLatestEventInfo(getApplicationContext(),"Quick System Settings App", 
+		                "Press to launch QuickSettingsApp",
+		                pendingIntent);
+		        notificationManager.notify(0, notification);*/
+		        
 				// mIntent = new Intent().setClassName("com.android.settings", "com.android.settings.ChooseLockGeneric");
 				mIntent = new Intent().setClassName("com.android.settings",
 						"com.android.settings.fuelgauge.PowerUsageSummary");
@@ -413,6 +477,18 @@ public class MainActivity extends Activity {
 				} else {
 					mAirplaneToggleController.enableAirplane();
 				}
+				break;
+				
+			// ------------ Change back ground skins
+			case R.id.btn_toggle_skins:
+				wallpaperIdx = (wallpaperIdx + 1) % wallpapperIds.length;
+		    	// saving current wall position
+		    	PreferenceUtils.saveIntPref(
+		                getApplicationContext(), 
+		                Constant.PREF_NAME, 
+		                Constant.PREF_WALL_POS, 
+		                wallpaperIdx);
+				updateWallpaperSkins();
 				break;
 				
 			default:

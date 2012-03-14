@@ -40,6 +40,14 @@ public class ImageViewRounded extends ImageView {
 	    if (mViewDrawable != null) {
 	        mFullSizeBitmap = mViewDrawable.getBitmap();
 	    }
+	    needToUpdateImageSrc = true;
+	}
+	
+	private boolean needToUpdateImageSrc = false;
+	public void refreshSkinBackground() {
+		initRoundImage();
+		requestLayout();
+		invalidate();
 	}
 
 	@Override
@@ -59,7 +67,8 @@ public class ImageViewRounded extends ImageView {
 		int scaledWidth = getMeasuredWidth();
 		int scaledHeight = getMeasuredHeight();
 
-        if (mScaledBitmap == null && scaledWidth > 0 && scaledHeight > 0) {
+		if (mScaledBitmap == null && scaledWidth > 0 && scaledHeight > 0
+				|| needToUpdateImageSrc) {
     		if (scaledWidth == mFullSizeBitmap.getWidth()
     				&& scaledHeight == mFullSizeBitmap.getHeight()) {
     			mScaledBitmap = mFullSizeBitmap;
@@ -69,12 +78,15 @@ public class ImageViewRounded extends ImageView {
     		}
 		}
 
-        if (mRoundBitmap == null) {
+        if (mRoundBitmap == null || needToUpdateImageSrc) {
     		mRoundBitmap = getRoundedCornerBitmap(getContext(),
     				mScaledBitmap, 3, scaledWidth, scaledHeight, false, false,
     				false, false);
+    		needToUpdateImageSrc = false;
 		}
-		canvas.drawBitmap(mRoundBitmap, 0, 0, null);
+        if (!mRoundBitmap.isRecycled()) {
+        	canvas.drawBitmap(mRoundBitmap, 0, 0, null);
+        }
 	}
 
 	public Bitmap getRoundedCornerBitmap(Context context, Bitmap input,

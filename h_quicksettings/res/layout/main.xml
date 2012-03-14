@@ -10,7 +10,7 @@
         android:layout_height="332dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
-        android:src="@drawable/wallpaper4" />
+        android:src="@drawable/wallpaper1" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -20,17 +20,27 @@
         android:background="@drawable/frame_trans"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" 
-            android:layout_marginBottom="10dp">
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp" >
 
+            <ImageView
+                android:id="@+id/btn_toggle_info"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="3dp"
+                android:visibility="gone"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_info" />
+            
             <com.handroid.apps.quicksettings.widget.CoolTextView
                 style="@style/TextShadowBlack"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/tv_app_panel_text"
                 android:textColor="@color/solid_white"
@@ -41,10 +51,11 @@
                 android:id="@+id/btn_toggle_skins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_skins" android:layout_gravity="center"/>
-        </LinearLayout>
+                android:layout_gravity="center|right"
+                android:layout_marginRight="3dp"
+                android:clickable="true"
+                android:src="@drawable/button_skins_bg" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -226,7 +237,7 @@
                 android:layout_height="80dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_batt"
+                android:drawableTop="@drawable/ic_batt_100"
                 android:gravity="center"
                 android:text="@string/btn_text_battery"
                 android:textColor="@color/solid_white"
