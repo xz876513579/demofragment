@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
 	
 	ImageView btnCallSettings;
 	Dialog mDlgMenuAppSettings;
+	CheckBox mCbShowNotification;
 	NotificationManager notificationManager;
 	
 	// private DataConManager mDataConManager;
@@ -504,7 +505,7 @@ public class MainActivity extends Activity {
 							mDlgMenuAppSettings.dismiss();
 						}
 					});
-			        CheckBox mCbShowNotification = (CheckBox) mMenuLayout.findViewById(R.id.radiobtn_show_notification);
+			        mCbShowNotification = (CheckBox) mMenuLayout.findViewById(R.id.radiobtn_show_notification);
 			        mCbShowNotification.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			        	@Override
 			        	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -546,6 +547,13 @@ public class MainActivity extends Activity {
 			        mDlgMenuAppSettings.setCancelable(true);
 				}
 				if (!mDlgMenuAppSettings.isShowing()) {
+					if (mCbShowNotification != null) {
+						mCbShowNotification.setChecked(PreferenceUtils.getBoolPref(
+	    		                getApplicationContext(), 
+	    		                Constant.PREF_NAME, 
+	    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+	    		                false));
+					}
 					mDlgMenuAppSettings.show();
 				} else {
 					mDlgMenuAppSettings.dismiss();
