@@ -22,15 +22,15 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp" >
 
-        <TextView
+        <com.handroid.apps.quicksettings.widget.CoolTextView
             style="@style/TextShadowBlack"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="App Setting"
+            android:text="@string/tv_text_setting_desc"
             android:textColor="@color/solid_white"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <View
@@ -54,18 +54,18 @@
                 android:checked="false"
                 android:gravity="center|left" />
 
-            <TextView
+            <com.handroid.apps.quicksettings.widget.CoolTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:text="Show app on status bar for fast access"
+                android:text="@string/tv_text_setting_show_notif"
                 android:textColor="@color/solid_white"
                 android:textSize="17sp" />
         </LinearLayout>
 
-        <Button
+        <com.handroid.apps.quicksettings.widget.CoolButton
             android:id="@+id/bt_appsetting_ok_id"
             style="@style/TextShadowBlack"
             android:layout_width="fill_parent"
@@ -76,7 +76,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/button_custom_bg"
             android:gravity="center"
-            android:text="Okay"
+            android:text="@string/btn_text_setting_ok"
             android:textColor="@color/solid_white"
             android:textSize="16sp"
             android:textStyle="bold" />
