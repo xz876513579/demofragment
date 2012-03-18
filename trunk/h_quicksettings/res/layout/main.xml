@@ -1,259 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
-    android:layout_height="345dp"
-    android:layout_gravity="center" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="#9fff"
+    android:gravity="center" >
 
-    <com.handroid.apps.quicksettings.widget.ImageViewRounded
-        android:id="@+id/imv_wallpaper"
-        android:layout_width="305dp"
-        android:layout_height="332dp"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wallpaper1" />
+    <FrameLayout
+        android:layout_width="320dp"
+        android:layout_height="345dp"
+        android:layout_gravity="center" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:background="@drawable/frame_trans"
-        android:orientation="vertical" >
+        <com.handroid.apps.quicksettings.widget.ImageViewRounded
+            android:id="@+id/imv_wallpaper"
+            android:layout_width="305dp"
+            android:layout_height="332dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/wallpaper1" />
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="38dp"
-            android:layout_gravity="top" >
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/frame_trans"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:id="@+id/btn_toggle_info"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="left"
-                android:layout_marginLeft="3dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_info"/>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:layout_gravity="top" >
 
-            <com.handroid.apps.quicksettings.widget.CoolTextView
-                style="@style/TextShadowBlack"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/btn_toggle_info"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/view_trans_selector"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_info" />
+
+                <com.handroid.apps.quicksettings.widget.CoolTextView
+                    style="@style/TextShadowBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center"
+                    android:text="@string/tv_app_panel_text"
+                    android:textColor="@color/solid_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- <ImageView
+                    android:id="@+id/btn_toggle_skins"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/button_skins_bg" /> -->
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|center"
-                android:text="@string/tv_app_panel_text"
-                android:textColor="@color/solid_white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:gravity="center" >
 
-            <ImageView
-                android:id="@+id/btn_toggle_skins"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="right"
-                android:clickable="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/button_skins_bg" />
-        </FrameLayout>
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_wifi"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_wifi"
+                    android:gravity="center"
+                    android:text="@string/btn_text_wifi"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_wifi_settings"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_wifi_settings"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="@string/btn_text_wifi_settings"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_bluetooth"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_bluetooth_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_bluetooth"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_bluetooth_settings"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_bluetooth_settings_off"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="@string/btn_text_bluetooth_set"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_manage_apps"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_manage_apps"
+                    android:gravity="center"
+                    android:text="@string/btn_text_mange_apps"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_mobile_data"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_network_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_mobile_data"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_light"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_light_hight"
+                    android:gravity="center"
+                    android:text="@string/btn_text_back_light"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_sound_vibrate"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_vibration_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_vibrate_normal"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_airplane"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_air_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_airplane"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_gps_settings"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_gps_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_gps"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_phone_rotation"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_auto_rotation_off"
+                    android:gravity="center"
+                    android:text="@string/btn_text_rotation"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <com.handroid.apps.quicksettings.widget.CoolButton
+                    android:id="@+id/btn_togle_battery"
+                    style="@style/TextShadowBlack"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_custom_bg"
+                    android:drawableTop="@drawable/ic_batt_100"
+                    android:gravity="center"
+                    android:text="@string/btn_text_battery"
+                    android:textColor="@color/solid_white"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_wifi"
+                android:id="@+id/btn_qsettings_done"
                 style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_wifi"
                 android:gravity="center"
-                android:text="@string/btn_text_wifi"
+                android:text="@string/btn_text_done"
                 android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_wifi_settings"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_wifi_settings"
-                android:enabled="false"
-                android:gravity="center"
-                android:text="@string/btn_text_wifi_settings"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_bluetooth"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_bluetooth_off"
-                android:gravity="center"
-                android:text="@string/btn_text_bluetooth"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_bluetooth_settings"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_bluetooth_settings_off"
-                android:enabled="false"
-                android:gravity="center"
-                android:text="@string/btn_text_bluetooth_set"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
+    </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_manage_apps"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_manage_apps"
-                android:gravity="center"
-                android:text="@string/btn_text_mange_apps"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_mobile_data"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_network_off"
-                android:gravity="center"
-                android:text="@string/btn_text_mobile_data"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_light"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_light_hight"
-                android:gravity="center"
-                android:text="@string/btn_text_back_light"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_sound_vibrate"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_vibration_off"
-                android:gravity="center"
-                android:text="@string/btn_text_vibrate_normal"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_airplane"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_air_off"
-                android:gravity="center"
-                android:text="@string/btn_text_airplane"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_gps_settings"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_gps_off"
-                android:gravity="center"
-                android:text="@string/btn_text_gps"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_phone_rotation"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_auto_rotation_off"
-                android:gravity="center"
-                android:text="@string/btn_text_rotation"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <com.handroid.apps.quicksettings.widget.CoolButton
-                android:id="@+id/btn_togle_battery"
-                style="@style/TextShadowBlack"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_custom_bg"
-                android:drawableTop="@drawable/ic_batt_100"
-                android:gravity="center"
-                android:text="@string/btn_text_battery"
-                android:textColor="@color/solid_white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <com.handroid.apps.quicksettings.widget.CoolButton
-            android:id="@+id/btn_qsettings_done"
-            style="@style/TextShadowBlack"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/button_custom_bg"
-            android:gravity="center"
-            android:text="@string/btn_text_done"
-            android:textColor="@color/solid_white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

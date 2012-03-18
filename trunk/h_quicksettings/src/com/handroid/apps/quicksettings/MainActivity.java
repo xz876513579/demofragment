@@ -17,7 +17,6 @@ import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.provider.Settings;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +30,7 @@ import android.widget.ImageView;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
 import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
+import com.handroid.apps.quicksettings.utils.BrightnessToggleController;
 import com.handroid.apps.quicksettings.utils.GpsToggleController;
 import com.handroid.apps.quicksettings.utils.MobileNetworkToggleController;
 import com.handroid.apps.quicksettings.utils.PhoneRotationToggleController;
@@ -63,9 +63,11 @@ public class MainActivity extends Activity {
 	
 	Button btnToggleAirPlane;
 	
+	Button bntBrightness;
+	
 	Button btnDone;
 	
-	ImageView btnChangeSkins;
+	private ImageView btnChangeSkins;
 	ImageViewRounded imvBacgroundSkins;
 	int[] wallpapperIds = { R.drawable.wallpaper1, R.drawable.wallpaper2,
 			R.drawable.wallpaper3, R.drawable.wallpaper4,
@@ -90,6 +92,7 @@ public class MainActivity extends Activity {
 	private PhoneRotationToggleController mPhoneRotationToggleController;
 	private AirplaneToggleController mAirplaneToggleController;
 	private MobileNetworkToggleController mMobileNetworkToggleController;
+	private BrightnessToggleController mBrightnessToggleController;
 	
 	// private final int MSG_MOBILE_NETWORK_STATE 	= 1002;
 	
@@ -108,7 +111,8 @@ public class MainActivity extends Activity {
         mGpsToggleController = new GpsToggleController(getApplicationContext());
         mPhoneRotationToggleController = new PhoneRotationToggleController(getApplicationContext());
         mAirplaneToggleController = new AirplaneToggleController(getApplicationContext());
-        mMobileNetworkToggleController = new MobileNetworkToggleController(getApplicationContext());        
+        mMobileNetworkToggleController = new MobileNetworkToggleController(getApplicationContext());
+        mBrightnessToggleController = new BrightnessToggleController(getApplicationContext());
         
         setContentView(R.layout.main);
         
@@ -168,8 +172,8 @@ public class MainActivity extends Activity {
         btnToggleAirPlane = (Button) findViewById(R.id.btn_togle_airplane);
         btnToggleAirPlane.setOnClickListener(viewOnClickListener);
         
-        btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);
-        btnChangeSkins.setOnClickListener(viewOnClickListener);
+//        btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);
+//        btnChangeSkins.setOnClickListener(viewOnClickListener);
         imvBacgroundSkins = (ImageViewRounded) findViewById(R.id.imv_wallpaper);
         
         btnCallSettings = (ImageView) findViewById(R.id.btn_toggle_info);
@@ -192,6 +196,9 @@ public class MainActivity extends Activity {
         
         Button[] arrPhoneMobileNetworkBtnToggle = new Button[] {btnToggleMobileNetwork};
         mMobileNetworkToggleController.initToggleButton(arrPhoneMobileNetworkBtnToggle);
+        
+        Button[] arrBrightnessBtnToggle = new Button[] {btnToggleLight};
+        mBrightnessToggleController.initToggleButton(arrBrightnessBtnToggle);
         
         updateSoundVibrateButtonState();
         updateWallpaperSkins();
@@ -232,6 +239,7 @@ public class MainActivity extends Activity {
 				Intent.ACTION_BATTERY_CHANGED));
 		mMediaRingtonePlayer = MediaPlayer.create(getApplicationContext(),
 				R.raw.crystal_ring);
+		mBrightnessToggleController.doOnActivityResume();
 	};
     
     @Override
@@ -422,10 +430,31 @@ public class MainActivity extends Activity {
 				
 			// ----------- PHONE LIGHT
 			case R.id.btn_togle_light:
-				BaseApplication.makeToastMsg("Coming soon!");
-				Settings.System.putInt(getApplicationContext()
-						.getContentResolver(),
-						Settings.System.SCREEN_BRIGHTNESS, 20);
+				
+				/*try {
+					int brightnessMode = Settings.System.getInt(
+							getContentResolver(),
+							Settings.System.SCREEN_BRIGHTNESS_MODE);
+					BaseApplication.makeToastMsg("Coming soon!" + brightnessMode);
+					if (brightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+						Settings.System.putInt(getContentResolver(),
+								Settings.System.SCREEN_BRIGHTNESS_MODE,
+								Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+					} else {
+						
+					}
+
+					Settings.System.putInt(getApplicationContext()
+							.getContentResolver(),
+							Settings.System.SCREEN_BRIGHTNESS, 50);
+					
+					WindowManager.LayoutParams lp = getWindow().getAttributes();
+					lp.screenBrightness = 50 / 255.0f;
+					getWindow().setAttributes(lp);
+
+				} catch (SettingNotFoundException e1) {
+					e1.printStackTrace();
+				}*/
 
 				break;
 
@@ -479,7 +508,7 @@ public class MainActivity extends Activity {
 				break;
 				
 			// ------------ Change back ground skins
-			case R.id.btn_toggle_skins:
+			/*case R.id.btn_toggle_skins:
 				wallpaperIdx = (wallpaperIdx + 1) % wallpapperIds.length;
 		    	// saving current wall position
 		    	PreferenceUtils.saveIntPref(
@@ -488,7 +517,7 @@ public class MainActivity extends Activity {
 		                Constant.PREF_WALL_POS, 
 		                wallpaperIdx);
 				updateWallpaperSkins();
-				break;
+				break;*/
 
 			case R.id.btn_toggle_info:
 				if (mDlgMenuAppSettings == null) {
@@ -559,6 +588,17 @@ public class MainActivity extends Activity {
 			        	}
 			        });
 			        mDlgMenuAppSettings.setCancelable(true);
+					/* TODO apply skin
+					btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);
+					wallpaperIdx = (wallpaperIdx + 1) % wallpapperIds.length;
+			    	// saving current wall position
+			    	PreferenceUtils.saveIntPref(
+			                getApplicationContext(), 
+			                Constant.PREF_NAME, 
+			                Constant.PREF_WALL_POS, 
+			                wallpaperIdx);
+					updateWallpaperSkins();*/
+
 				}
 				if (!mDlgMenuAppSettings.isShowing()) {
 					if (mCbShowNotification != null) {
