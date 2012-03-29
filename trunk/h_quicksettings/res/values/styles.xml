@@ -71,7 +71,7 @@
 		<item name="android:windowAnimationStyle">@style/Animation.QuickSettingsDialog</item>	    
         <item name="android:windowBackground">@drawable/transparent_background</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:colorForeground">#9fff</item>
+        <item name="android:colorForeground">#0000</item>
     </style>
     
 </resources>

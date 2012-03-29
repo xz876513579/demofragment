@@ -1,91 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:gravity="center"
-    android:orientation="vertical" >
+    android:layout_height="match_parent"
+    android:layout_gravity="center" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#bfff" />
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/popupheader_s" />
-
-    <LinearLayout
-        android:id="@+id/layout_popup_id"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/popupstretch"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
-
-        <com.handroid.apps.quicksettings.widget.CoolTextView
-            style="@style/TextShadowBlack"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/tv_text_setting_desc"
-            android:textColor="@color/solid_white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/sep_h2" />
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:background="@drawable/popupheader_s" />
 
-            <CheckBox
-                android:id="@+id/radiobtn_show_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:button="@drawable/custom_checkbox"
-                android:checked="false"
-                android:gravity="center|left" />
-
-            <com.handroid.apps.quicksettings.widget.CoolTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:text="@string/tv_text_setting_show_notif"
-                android:textColor="@color/solid_white"
-                android:textSize="17sp" />
-        </LinearLayout>
-
-        <com.handroid.apps.quicksettings.widget.CoolButton
-            android:id="@+id/bt_appsetting_ok_id"
-            style="@style/TextShadowBlack"
+        <LinearLayout
+            android:id="@+id/layout_popup_id"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_custom_bg"
-            android:gravity="center"
-            android:text="@string/btn_text_setting_ok"
-            android:textColor="@color/solid_white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:background="@drawable/popupstretch"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
+
+            <com.handroid.apps.quicksettings.widget.CoolTextView
+                style="@style/TextShadowBlack"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/tv_text_setting_desc"
+                android:textColor="@color/solid_white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/sep_h2" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/radiobtn_show_notification"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center|left"
+                    android:button="@drawable/custom_checkbox"
+                    android:checked="false"
+                    android:gravity="center|left" />
+
+                <com.handroid.apps.quicksettings.widget.CoolTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tv_text_setting_show_notif"
+                    android:textColor="@color/solid_white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal" android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/btn_toggle_skins"
+                    android:layout_gravity="center|left"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:clickable="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/button_skins_bg" />
+
+                <com.handroid.apps.quicksettings.widget.CoolTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/tv_text_setting_change_skin"
+                    android:textColor="@color/solid_white"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <com.handroid.apps.quicksettings.widget.CoolButton
+                android:id="@+id/bt_appsetting_ok_id"
+                style="@style/TextShadowBlack"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_custom_bg"
+                android:gravity="center"
+                android:text="@string/btn_text_setting_ok"
+                android:textColor="@color/solid_white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popupfooter" >
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/popupfooter" >
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#9fff"
     android:gravity="center" >
+
+    <View
+        android:id="@+id/panel_bg_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#bfff"
+        android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="320dp"
@@ -52,14 +58,16 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <!-- <ImageView
+                <!--
+                     <ImageView
                     android:id="@+id/btn_toggle_skins"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="right"
                     android:clickable="true"
                     android:scaleType="centerInside"
-                    android:src="@drawable/button_skins_bg" /> -->
+                    android:src="@drawable/button_skins_bg" />
+                -->
             </FrameLayout>
 
             <LinearLayout
@@ -265,4 +273,4 @@
         </LinearLayout>
     </FrameLayout>
 
-</LinearLayout>
+</FrameLayout>
