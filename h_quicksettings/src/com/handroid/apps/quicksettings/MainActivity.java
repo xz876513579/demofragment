@@ -67,6 +67,8 @@ public class MainActivity extends Activity {
 	
 	Button btnDone;
 	
+	View mPanelBackgroundView;
+	
 	private ImageView btnChangeSkins;
 	ImageViewRounded imvBacgroundSkins;
 	int[] wallpapperIds = { R.drawable.wallpaper1, R.drawable.wallpaper2,
@@ -80,6 +82,7 @@ public class MainActivity extends Activity {
 	ImageView btnCallSettings;
 	Dialog mDlgMenuAppSettings;
 	CheckBox mCbShowNotification;
+	ImageView mImvChangeSkin;
 	NotificationManager notificationManager;
 	
 	// private DataConManager mDataConManager;
@@ -112,7 +115,7 @@ public class MainActivity extends Activity {
         mPhoneRotationToggleController = new PhoneRotationToggleController(getApplicationContext());
         mAirplaneToggleController = new AirplaneToggleController(getApplicationContext());
         mMobileNetworkToggleController = new MobileNetworkToggleController(getApplicationContext());
-        mBrightnessToggleController = new BrightnessToggleController(getApplicationContext());
+        mBrightnessToggleController = new BrightnessToggleController(MainActivity.this);
         
         setContentView(R.layout.main);
         
@@ -137,6 +140,14 @@ public class MainActivity extends Activity {
 		
         btnDone = (Button) findViewById(R.id.btn_qsettings_done);
         btnDone.setOnClickListener(viewOnClickListener);
+        
+        mPanelBackgroundView = (View) findViewById(R.id.panel_bg_view);
+        mPanelBackgroundView.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				mPanelBackgroundView.setVisibility(View.VISIBLE);
+			}
+		}, 300);
 
         btnToggleWifi = (Button) findViewById(R.id.btn_togle_wifi);
         btnToggleWifi.setOnClickListener(viewOnClickListener);
@@ -219,8 +230,12 @@ public class MainActivity extends Activity {
     
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-//		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-//				&& event.getAction() == KeyEvent.ACTION_DOWN)
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+				&& event.getAction() == KeyEvent.ACTION_DOWN) {
+			if (mPanelBackgroundView != null) {
+				mPanelBackgroundView.setVisibility(View.GONE);
+			}
+		}
 //    		return true;
     	return super.dispatchKeyEvent(event);
     }
@@ -273,16 +288,16 @@ public class MainActivity extends Activity {
 	    	// temp = temp * 9 / 5 + 32; // enable this line if we want using ºF
 	    	// android.util.Log.i(TAG, "--> battery: " + level + "%" + " " + (temp / 10.0F) + "C");
     		// btnToggleBattery.setText(getString(R.string.btn_text_battery, level, temp));
-	    	if (level <= 100 && level > 90) {
+	    	if (level <= 100 && level >= 90) {
 	    		btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_100, 0, 0);
 	    	} else {
-	    		if (level < 90 && level > 65) {
+	    		if (level < 90 && level >= 65) {
 	    			btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_75, 0, 0);
 	    		} else {
-	    			if (level < 65 && level > 35) {
+	    			if (level < 65 && level >= 35) {
 	    				btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_50, 0, 0);
 	    			} else {
-	    				if (level < 35 && level > 15) {
+	    				if (level < 35 && level >= 15) {
 	    					btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_25, 0, 0);	    					
 	    				} else {
 	    					btnToggleBattery.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_batt_10, 0, 0);
@@ -363,6 +378,9 @@ public class MainActivity extends Activity {
 				
 			// ----------- FINISH QUICK SETTINGS APP
 			case R.id.btn_qsettings_done:
+				if (mPanelBackgroundView != null) {
+					mPanelBackgroundView.setVisibility(View.GONE);
+				}
 				finish();
 				// overridePendingTransition(R.anim.zoom_enter, R.anim.zoom_exit);
 				break;
@@ -430,7 +448,8 @@ public class MainActivity extends Activity {
 				
 			// ----------- PHONE LIGHT
 			case R.id.btn_togle_light:
-				
+				// TODO apply screen brightness mode
+				mBrightnessToggleController.updateScreenLevel();
 				/*try {
 					int brightnessMode = Settings.System.getInt(
 							getContentResolver(),
@@ -538,6 +557,7 @@ public class MainActivity extends Activity {
 							mDlgMenuAppSettings.dismiss();
 						}
 					});
+			        
 					mCbShowNotification = (CheckBox) mMenuLayout
 							.findViewById(R.id.radiobtn_show_notification);
 					mCbShowNotification
@@ -587,6 +607,21 @@ public class MainActivity extends Activity {
 			        		}
 			        	}
 			        });
+					mImvChangeSkin = (ImageView) mMenuLayout
+							.findViewById(R.id.btn_toggle_skins);
+					mImvChangeSkin.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							wallpaperIdx = (wallpaperIdx + 1) % wallpapperIds.length;
+					    	// saving current wall position
+					    	PreferenceUtils.saveIntPref(
+					                getApplicationContext(), 
+					                Constant.PREF_NAME, 
+					                Constant.PREF_WALL_POS, 
+					                wallpaperIdx);
+							updateWallpaperSkins();
+						}
+					});
 			        mDlgMenuAppSettings.setCancelable(true);
 					/* TODO apply skin
 					btnChangeSkins = (ImageView) findViewById(R.id.btn_toggle_skins);

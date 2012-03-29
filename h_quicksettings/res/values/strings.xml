@@ -23,7 +23,8 @@
     <string name="btn_text_battery"><xliff:g id="level">%1$s</xliff:g>º/o\n<xliff:g id="temp">%2$s</xliff:g>ºC</string>
 	<string name="btn_text_done">DONE</string>
 	
-	<string name="tv_text_setting_desc">App Setting</string>
+	<string name="tv_text_setting_desc">Application Setting</string>
 	<string name="tv_text_setting_show_notif">Show app shortcut on status bar for fast access</string>
+	<string name="tv_text_setting_change_skin">Change app background</string>
 	<string name="btn_text_setting_ok">Okay</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.handroid.apps.quicksettings.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -7,6 +8,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.handroid.apps.quicksettings.Constant;
@@ -15,14 +17,14 @@ import com.handroid.apps.quicksettings.R;
 public class BrightnessToggleController extends AbtractToggleController{
 	
 	private Button btnToggleBrightness = null;
-	private Context mContext;
-	private final int BACKLIGHT_LOW = 10;
-	private final int BACKLIGHT_MIDDLE = 50;
-	private final int BACKLIGHT_HIGHT = 150;
+	private Activity mContext;
+	private final int BACKLIGHT_LOW = 15;
+	private final int BACKLIGHT_MIDDLE = 70;
+	private final int BACKLIGHT_HIGHT = 200;
 	private final int BACKLIGHT_CURRENT = -1;
 	private final int BACKLIGHT_AUTO = -2;
 	
-	public BrightnessToggleController(Context context) {
+	public BrightnessToggleController(Activity context) {
 		super(context);
 		mContext = context;
 	}
@@ -80,7 +82,8 @@ public class BrightnessToggleController extends AbtractToggleController{
 				
 			default:
 				btnToggleBrightness.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_light_current, 0, 0);
-				btnToggleBrightness.setText("Brightness\n" + currentScreenBrightness);
+				// btnToggleBrightness.setText("Brightness\n" + currentScreenBrightness);
+				btnToggleBrightness.setText("Custom\nBrightness");
 				PreferenceUtils.saveIntPref(
 		                mContext, 
 		                Constant.PREF_NAME, 
@@ -125,14 +128,45 @@ public class BrightnessToggleController extends AbtractToggleController{
 		switch (currentScreenLevel) {
 		case BACKLIGHT_AUTO:
 			setAutobrightness(false);
+			setScreenBrightnessToLevel(BACKLIGHT_LOW);
+			break;
+			
+		case BACKLIGHT_LOW:
+			setScreenBrightnessToLevel(BACKLIGHT_MIDDLE);
+			break;
+			
+		case BACKLIGHT_MIDDLE:
+			setScreenBrightnessToLevel(BACKLIGHT_HIGHT);
+			break;
+			
+		case BACKLIGHT_HIGHT:
+			setAutobrightness(true);
 			break;
 			
 		case BACKLIGHT_CURRENT:
+			setScreenBrightnessToLevel(BACKLIGHT_LOW);
 			break;
 			
 		default:
 			break;
 		}
+		updateBtnUI();
+	}
+	
+	private void setScreenBrightnessToLevel(final int level) {
+		Settings.System.putInt(mContext.getContentResolver(),
+				Settings.System.SCREEN_BRIGHTNESS, level);
+		try {
+			WindowManager.LayoutParams lp = mContext.getWindow().getAttributes();
+			lp.screenBrightness = level / 255.0f;
+			mContext.getWindow().setAttributes(lp);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void refreshScreen() {
+		
 	}
 
 	private boolean isSupportAutomaticBrightness() {
