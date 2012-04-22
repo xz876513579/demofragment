@@ -27,6 +27,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.handroid.apps.quicksettings.utils.AirplaneToggleController;
 import com.handroid.apps.quicksettings.utils.BluetoothToggleController;
@@ -81,8 +82,9 @@ public class MainActivity extends Activity {
 	
 	ImageView btnCallSettings;
 	Dialog mDlgMenuAppSettings;
-	CheckBox mCbShowNotification;
-	ImageView mImvChangeSkin;
+	LinearLayout mBtnShowOnStatusbar;
+	CheckBox mCBShowNotification;
+	LinearLayout mBtnChangeSkin;
 	NotificationManager notificationManager;
 	
 	// private DataConManager mDataConManager;
@@ -558,58 +560,34 @@ public class MainActivity extends Activity {
 						}
 					});
 			        
-					mCbShowNotification = (CheckBox) mMenuLayout
+					mBtnShowOnStatusbar = (LinearLayout) mMenuLayout
+							.findViewById(R.id.btn_show_notification);
+					mCBShowNotification = (CheckBox) mMenuLayout
 							.findViewById(R.id.radiobtn_show_notification);
-					mCbShowNotification
+					mBtnShowOnStatusbar.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							boolean isChecked = PreferenceUtils.getBoolPref(
+		    		                getApplicationContext(), 
+		    		                Constant.PREF_NAME, 
+		    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+		    		                false);
+							updateCheckBoxShowNotifOnStatusBar(isChecked);
+						}
+					});
+
+					mCBShowNotification
 							.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			        	@Override
 						public void onCheckedChanged(
 								CompoundButton buttonView,
 								boolean isChecked) {
-			        		if (isChecked) {
-			        			PreferenceUtils.saveBoolPref(
-			    		                getApplicationContext(), 
-			    		                Constant.PREF_NAME, 
-			    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
-			    		                true);
-			    		        Notification notification = new Notification(
-			    		        		R.drawable.ic_launcher,
-			    		                "Launch QuickSettingsApp" , 
-			    		                System.currentTimeMillis());
-			    		        // Hide the notification after its selected
-			    		        notification.flags |= Notification.FLAG_NO_CLEAR;
-			    		        
-			    		        Intent intent = new Intent(getApplicationContext(), 
-			    		        		MainActivity.class);
-			    		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			    		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-								PendingIntent pendingIntent = PendingIntent
-										.getActivity(getApplicationContext(),
-												0, intent, 0);
-			    		        notification.setLatestEventInfo(
-			    		        		getApplicationContext(),
-			    		        		"Quick System Settings App", 
-			    		                "Press to launch QuickSettingsApp",
-			    		                pendingIntent);
-			    		        if (notificationManager != null) {
-			    		        	notificationManager.notify(113, notification);
-			    		        }
-			        		} else {
-			        			if (notificationManager != null) {
-			        				PreferenceUtils.saveBoolPref(
-				    		                getApplicationContext(), 
-				    		                Constant.PREF_NAME, 
-				    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
-				    		                false);
-			        				notificationManager.cancel(113);
-			        			}
-			        		}
+			        		updateCheckBoxShowNotifOnStatusBar(!isChecked);
 			        	}
 			        });
-					mImvChangeSkin = (ImageView) mMenuLayout
+					mBtnChangeSkin = (LinearLayout) mMenuLayout
 							.findViewById(R.id.btn_toggle_skins);
-					mImvChangeSkin.setOnClickListener(new OnClickListener() {
+					mBtnChangeSkin.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							wallpaperIdx = (wallpaperIdx + 1) % wallpapperIds.length;
@@ -636,8 +614,8 @@ public class MainActivity extends Activity {
 
 				}
 				if (!mDlgMenuAppSettings.isShowing()) {
-					if (mCbShowNotification != null) {
-						mCbShowNotification.setChecked(
+					if (mCBShowNotification != null) {
+						mCBShowNotification.setChecked(
 							PreferenceUtils.getBoolPref(
 	    		                getApplicationContext(), 
 	    		                Constant.PREF_NAME, 
@@ -654,6 +632,50 @@ public class MainActivity extends Activity {
 				BaseApplication.makeToastMsg("Cannot find any event handling for this button clicked!");				
 				break;
 			}
+		}
+		
+		public void updateCheckBoxShowNotifOnStatusBar(boolean show) {
+			if (!show) {
+    			PreferenceUtils.saveBoolPref(
+		                getApplicationContext(), 
+		                Constant.PREF_NAME, 
+		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+		                true);
+		        Notification notification = new Notification(
+		        		R.drawable.ic_launcher,
+		                "Launch QuickSettingsApp" , 
+		                System.currentTimeMillis());
+		        // Hide the notification after its selected
+		        notification.flags |= Notification.FLAG_NO_CLEAR;
+		        
+		        Intent intent = new Intent(getApplicationContext(), 
+		        		MainActivity.class);
+		        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+				PendingIntent pendingIntent = PendingIntent
+						.getActivity(getApplicationContext(),
+								0, intent, 0);
+		        notification.setLatestEventInfo(
+		        		getApplicationContext(),
+		        		"Quick System Settings App", 
+		                "Press to launch QuickSettingsApp",
+		                pendingIntent);
+		        mCBShowNotification.setChecked(true);
+		        if (notificationManager != null) {
+		        	notificationManager.notify(113, notification);
+		        }
+    		} else {
+    			if (notificationManager != null) {
+    				PreferenceUtils.saveBoolPref(
+    		                getApplicationContext(), 
+    		                Constant.PREF_NAME, 
+    		                Constant.PREF_CHECK_SHOW_NOTIFICATION, 
+    		                false);
+    				mCBShowNotification.setChecked(false);
+    				notificationManager.cancel(113);
+    			}
+    		}
 		}
 	};
 }
