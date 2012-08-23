@@ -1,0 +1,4 @@
+
+
+>>>Android NDK for Windows setup guide
+http://www.pocketmagic.net/?p=1332
