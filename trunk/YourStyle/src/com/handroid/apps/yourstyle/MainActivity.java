@@ -1,16 +1,17 @@
 package com.handroid.apps.yourstyle;
 
+import java.lang.reflect.Field;
+
 import org.jiggawatt.giffle.Giffle;
 
-import com.android.utils.NetworkUtils;
-
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -19,33 +20,58 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         
-        boolean isWifiConnected = NetworkUtils.getInstance().isWifiConnected(getApplicationContext());
-        Toast.makeText(getApplicationContext(), "is wifi connected = " + isWifiConnected, 0).show();
+//        boolean isWifiConnected = NetworkUtils.getInstance().isWifiConnected(getApplicationContext());
+//        Toast.makeText(getApplicationContext(), "is wifi connected = " + isWifiConnected, 0).show();
         
-        int width = 25;
-        int height = 25;
+        int width = 190;
+        int height = 220;
+        String gifFilePath = "/mnt/sdcard/foo.gif";
+        int numOfColor = 256;
+        int frameDelay = 150;
+        boolean isGifEncoderWorking = Giffle.getInstance().Init(gifFilePath,
+                width, height, numOfColor, 100, frameDelay) == 0;
         // Filename, width, height, colors, quality, frame delay
-        if (Giffle.sInstance().Init("/mnt/sdcard/foo.gif", width, height, 256, 100, 4) != 0) {
-            Log.e("mapp", "Init failed");
+        if (isGifEncoderWorking) {
+            Log.d("mapp", "Init gif encoder OK");
+            
+            int[] pixels = new int[width*height];
+            // bitmap should be 32-bit ARGB, e.g. like the ones you get when decoding 
+            // a JPEG using BitmapFactory
+            
+            for (int i = 1; i < 7; i ++) {
+                int resId = getResId("troll_00" + i, getApplicationContext(), Drawable.class);;
+                if (resId != -1) {
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
+                    bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+                    // Convert to 256 colors and add to foo.gif
+                    Giffle.getInstance().AddFrame(pixels);
+                    bitmap.recycle();
+                    bitmap = null;
+                }
+            }
+    
+            Giffle.getInstance().Close();
+            Log.d("mapp", ">>> encode gif file DONE");
         } else {
-            Log.d("mapp", "Init OK");
+            Log.e("mapp", "Init gif encoder failed");
         }
-        
-        int[] pixels = new int[width*height];
-        // bitmap should be 32-bit ARGB, e.g. like the ones you get when decoding 
-        // a JPEG using BitmapFactory
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_search);
-        bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
-        // Convert to 256 colors and add to foo.gif
-        Giffle.sInstance().AddFrame(pixels);
-
-        Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-        bitmap1.getPixels(pixels, 0, width, 0, 0, width, height);
-        // Convert to 256 colors and add to foo.gif
-        Giffle.sInstance().AddFrame(pixels);
-
-        
-        Giffle.sInstance().Close();
+    }
+    
+    public int getResId(String variableName, Context context, Class<?> c) {
+        try {
+            // Class<drawable> res = R.drawable.class;
+            Field field = c.getField(variableName);
+            return field.getInt(null);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     @Override
