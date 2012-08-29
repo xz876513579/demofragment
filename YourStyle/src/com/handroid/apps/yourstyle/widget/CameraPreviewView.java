@@ -98,6 +98,19 @@ public class CameraPreviewView extends SurfaceView implements SurfaceHolder.Call
            Parameters param = mCamera.getParameters();
            param.setRotation(180);
            mCamera.setParameters(param);
+           
+           // support auto focus
+            mCamera.autoFocus(new Camera.AutoFocusCallback() {
+                Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
+                    public void onShutter() {
+                        // Play your sound here.
+                    }
+                };
+
+                public void onAutoFocus(boolean success, Camera camera) {
+                    camera.takePicture(shutterCallback, null, mPictureCallback);
+                }
+            });
         } catch (IOException exception) {
             mCamera.release();
             mCamera = null;
