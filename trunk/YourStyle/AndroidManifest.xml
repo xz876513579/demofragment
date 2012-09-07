@@ -12,8 +12,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--
          We will request access to the camera, saying we require a camera
-         of some sort but not one with autofocus capability.
-    -->
+         of some sort but not one with autofocus capability.    -->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
