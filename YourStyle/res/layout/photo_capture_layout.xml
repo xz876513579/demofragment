@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
-    <com.handroid.apps.yourstyle.widget.CameraPreviewView 
-        android:layout_width="190dp"
-        android:layout_height="220dp"/>
+
+    <com.handroid.apps.yourstyle.widget.CameraPreviewView
+        android:id="@+id/cam_review"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,7 +14,14 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:padding="@dimen/padding_medium"
-        android:text="@string/hello_world"
-        tools:context=".MainActivity" />
+        android:text="@string/hello_world" />
+
+    <Button
+        android:id="@+id/btn_capture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cam_review"
+        android:layout_centerHorizontal="true"
+        android:text="Button" />
 
 </RelativeLayout>
