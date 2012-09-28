@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.handroid.apps.yourstyle.widget.CameraPreviewView;
@@ -42,6 +43,12 @@ public class CameraPreview extends BaseActivity implements OnClickListener{
         
         mBtnCapture = (Button) findViewById(R.id.btn_capture);
         mBtnCapture.setOnClickListener(this);
+    }
+    
+    @Override
+    public void onAttachedToWindow() {
+        this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD);
+        super.onAttachedToWindow();
     }
 
     public void onClick(View v) {
