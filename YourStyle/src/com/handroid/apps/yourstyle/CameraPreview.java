@@ -62,130 +62,130 @@ public class CameraPreview extends BaseActivity implements OnClickListener{
         }
     }
     
-    private void updateCameraParametersPreference() {
-
-        /*if (mFocusAreaSupported) {
-            mCameraParameters.setFocusAreas(mFocusManager.getFocusAreas());
-        }*/
-
-        /*if (mMeteringAreaSupported) {
-            // Use the same area for focus and metering.
-            mCameraParameters.setMeteringAreas(mFocusManager.getMeteringAreas());
-        }*/
-
-        // Set picture size.
-        String pictureSize = mComboPref.getString(
-                CameraSettings.KEY_PICTURE_SIZE, null);
-        if (pictureSize == null) {
-            CameraUtils.getInstance().initialCameraPictureSize(this, mCameraParameters);
-        } else {
-            List<Size> supported = mCameraParameters.getSupportedPictureSizes();
-            CameraUtils.getInstance().setCameraPictureSize(
-                    pictureSize, supported, mCameraParameters);
-        }
-        Size size = mCameraParameters.getPictureSize();
-
-        // Set a preview size that is closest to the viewfinder height and has
-        // the right aspect ratio.
-        List<Size> sizes = mCameraParameters.getSupportedPreviewSizes();
-        Size optimalSize = CameraUtils.getInstance().getOptimalPreviewSize(this, sizes,
-                (double) size.width / size.height);
-        Size original = mCameraParameters.getPreviewSize();
-        if (!original.equals(optimalSize)) {
-            mCameraParameters.setPreviewSize(optimalSize.width, optimalSize.height);
-
-            // Zoom related settings will be changed for different preview
-            // sizes, so set and read the parameters to get latest values
-            mCameraDevice.setParameters(mCameraParameters);
-            mCameraParameters = mCameraDevice.getParameters();
-        }
-        Log.v(TAG, "Preview size is " + optimalSize.width + "x" + optimalSize.height);
-
-        // Since change scene mode may change supported values,
-        // Set scene mode first,
-        mSceneMode = mComboPref.getString(
-                CameraSettings.KEY_SCENE_MODE,
-                getString(R.string.pref_camera_scenemode_default));
-        if (isSupported(mSceneMode, mCameraParameters.getSupportedSceneModes())) {
-            if (!mCameraParameters.getSceneMode().equals(mSceneMode)) {
-                mCameraParameters.setSceneMode(mSceneMode);
-
-                // Setting scene mode will change the settings of flash mode,
-                // white balance, and focus mode. Here we read back the
-                // parameters, so we can know those settings.
-                mCameraDevice.setParameters(mCameraParameters);
-                mCameraParameters = mCameraDevice.getParameters();
-            }
-        } else {
-            mSceneMode = mCameraParameters.getSceneMode();
-            if (mSceneMode == null) {
-                mSceneMode = Parameters.SCENE_MODE_AUTO;
-            }
-        }
-
-        // Set JPEG quality.
-        int jpegQuality = CameraProfile.getJpegEncodingQualityParameter(mCameraId,
-                CameraProfile.QUALITY_HIGH);
-        mCameraParameters.setJpegQuality(jpegQuality);
-
-        // For the following settings, we need to check if the settings are
-        // still supported by latest driver, if not, ignore the settings.
-
-        // Set exposure compensation
-        int value = CameraUtils.getInstance().readExposure(mComboPref);
-        int max = mCameraParameters.getMaxExposureCompensation();
-        int min = mCameraParameters.getMinExposureCompensation();
-        if (value >= min && value <= max) {
-            mCameraParameters.setExposureCompensation(value);
-        } else {
-            Log.w(TAG, "invalid exposure range: " + value);
-        }
-
-        if (Parameters.SCENE_MODE_AUTO.equals(mSceneMode)) {
-            // Set flash mode.
-            String flashMode = mComboPref.getString(
-                    CameraSettings.KEY_FLASH_MODE,
-                    getString(R.string.pref_camera_flashmode_default));
-            List<String> supportedFlash = mCameraParameters.getSupportedFlashModes();
-            if (isSupported(flashMode, supportedFlash)) {
-                mCameraParameters.setFlashMode(flashMode);
-            } else {
-                flashMode = mCameraParameters.getFlashMode();
-                if (flashMode == null) {
-                    flashMode = getString(
-                            R.string.pref_camera_flashmode_no_flash);
-                }
-            }
-
-            // Set white balance parameter.
-            String whiteBalance = mComboPref.getString(
-                    CameraSettings.KEY_WHITE_BALANCE,
-                    getString(R.string.pref_camera_whitebalance_default));
-            if (isSupported(whiteBalance,
-                    mCameraParameters.getSupportedWhiteBalance())) {
-                mCameraParameters.setWhiteBalance(whiteBalance);
-            } else {
-                whiteBalance = mCameraParameters.getWhiteBalance();
-                if (whiteBalance == null) {
-                    whiteBalance = Parameters.WHITE_BALANCE_AUTO;
-                }
-            }
-
-            // Set focus mode.
-            mFocusManager.overrideFocusMode(null);
-            mCameraParameters.setFocusMode(mFocusManager.getFocusMode());
-        } else {
-            mFocusManager.overrideFocusMode(mCameraParameters.getFocusMode());
-        }
-
-        if (mContinousFocusSupported) {
-            if (mCameraParameters.getFocusMode().equals(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
-                mCameraDevice.setAutoFocusMoveCallback(mAutoFocusMoveCallback);
-            } else {
-                mCameraDevice.setAutoFocusMoveCallback(null);
-            }
-        }
-    }
+//    private void updateCameraParametersPreference() {
+//
+//        /*if (mFocusAreaSupported) {
+//            mCameraParameters.setFocusAreas(mFocusManager.getFocusAreas());
+//        }*/
+//
+//        /*if (mMeteringAreaSupported) {
+//            // Use the same area for focus and metering.
+//            mCameraParameters.setMeteringAreas(mFocusManager.getMeteringAreas());
+//        }*/
+//
+//        // Set picture size.
+//        String pictureSize = mComboPref.getString(
+//                CameraSettings.KEY_PICTURE_SIZE, null);
+//        if (pictureSize == null) {
+//            CameraUtils.getInstance().initialCameraPictureSize(this, mCameraParameters);
+//        } else {
+//            List<Size> supported = mCameraParameters.getSupportedPictureSizes();
+//            CameraUtils.getInstance().setCameraPictureSize(
+//                    pictureSize, supported, mCameraParameters);
+//        }
+//        Size size = mCameraParameters.getPictureSize();
+//
+//        // Set a preview size that is closest to the viewfinder height and has
+//        // the right aspect ratio.
+//        List<Size> sizes = mCameraParameters.getSupportedPreviewSizes();
+//        Size optimalSize = CameraUtils.getInstance().getOptimalPreviewSize(this, sizes,
+//                (double) size.width / size.height);
+//        Size original = mCameraParameters.getPreviewSize();
+//        if (!original.equals(optimalSize)) {
+//            mCameraParameters.setPreviewSize(optimalSize.width, optimalSize.height);
+//
+//            // Zoom related settings will be changed for different preview
+//            // sizes, so set and read the parameters to get latest values
+//            mCameraDevice.setParameters(mCameraParameters);
+//            mCameraParameters = mCameraDevice.getParameters();
+//        }
+//        Log.v(TAG, "Preview size is " + optimalSize.width + "x" + optimalSize.height);
+//
+//        // Since change scene mode may change supported values,
+//        // Set scene mode first,
+//        mSceneMode = mComboPref.getString(
+//                CameraSettings.KEY_SCENE_MODE,
+//                getString(R.string.pref_camera_scenemode_default));
+//        if (isSupported(mSceneMode, mCameraParameters.getSupportedSceneModes())) {
+//            if (!mCameraParameters.getSceneMode().equals(mSceneMode)) {
+//                mCameraParameters.setSceneMode(mSceneMode);
+//
+//                // Setting scene mode will change the settings of flash mode,
+//                // white balance, and focus mode. Here we read back the
+//                // parameters, so we can know those settings.
+//                mCameraDevice.setParameters(mCameraParameters);
+//                mCameraParameters = mCameraDevice.getParameters();
+//            }
+//        } else {
+//            mSceneMode = mCameraParameters.getSceneMode();
+//            if (mSceneMode == null) {
+//                mSceneMode = Parameters.SCENE_MODE_AUTO;
+//            }
+//        }
+//
+//        // Set JPEG quality.
+//        int jpegQuality = CameraProfile.getJpegEncodingQualityParameter(mCameraId,
+//                CameraProfile.QUALITY_HIGH);
+//        mCameraParameters.setJpegQuality(jpegQuality);
+//
+//        // For the following settings, we need to check if the settings are
+//        // still supported by latest driver, if not, ignore the settings.
+//
+//        // Set exposure compensation
+//        int value = CameraUtils.getInstance().readExposure(mComboPref);
+//        int max = mCameraParameters.getMaxExposureCompensation();
+//        int min = mCameraParameters.getMinExposureCompensation();
+//        if (value >= min && value <= max) {
+//            mCameraParameters.setExposureCompensation(value);
+//        } else {
+//            Log.w(TAG, "invalid exposure range: " + value);
+//        }
+//
+//        if (Parameters.SCENE_MODE_AUTO.equals(mSceneMode)) {
+//            // Set flash mode.
+//            String flashMode = mComboPref.getString(
+//                    CameraSettings.KEY_FLASH_MODE,
+//                    getString(R.string.pref_camera_flashmode_default));
+//            List<String> supportedFlash = mCameraParameters.getSupportedFlashModes();
+//            if (isSupported(flashMode, supportedFlash)) {
+//                mCameraParameters.setFlashMode(flashMode);
+//            } else {
+//                flashMode = mCameraParameters.getFlashMode();
+//                if (flashMode == null) {
+//                    flashMode = getString(
+//                            R.string.pref_camera_flashmode_no_flash);
+//                }
+//            }
+//
+//            // Set white balance parameter.
+//            String whiteBalance = mComboPref.getString(
+//                    CameraSettings.KEY_WHITE_BALANCE,
+//                    getString(R.string.pref_camera_whitebalance_default));
+//            if (isSupported(whiteBalance,
+//                    mCameraParameters.getSupportedWhiteBalance())) {
+//                mCameraParameters.setWhiteBalance(whiteBalance);
+//            } else {
+//                whiteBalance = mCameraParameters.getWhiteBalance();
+//                if (whiteBalance == null) {
+//                    whiteBalance = Parameters.WHITE_BALANCE_AUTO;
+//                }
+//            }
+//
+//            // Set focus mode.
+//            mFocusManager.overrideFocusMode(null);
+//            mCameraParameters.setFocusMode(mFocusManager.getFocusMode());
+//        } else {
+//            mFocusManager.overrideFocusMode(mCameraParameters.getFocusMode());
+//        }
+//
+//        if (mContinousFocusSupported) {
+//            if (mCameraParameters.getFocusMode().equals(Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+//                mCameraDevice.setAutoFocusMoveCallback(mAutoFocusMoveCallback);
+//            } else {
+//                mCameraDevice.setAutoFocusMoveCallback(null);
+//            }
+//        }
+//    }
     
     private /*static*/ boolean isSupported(String value, List<String> supported) {
         return supported == null ? false : supported.indexOf(value) >= 0;
